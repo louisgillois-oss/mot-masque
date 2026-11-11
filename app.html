@@ -146,18 +146,45 @@ button { cursor: pointer; }
 
 /* The secret card */
 .card {
-  background: var(--card); color: var(--ink); border-radius: 22px; padding: 28px 22px; margin: 0 auto;
+  /* Every card has the same face whatever the role: from across the table they look identical. */
+  --line: rgba(28,35,32,.22);
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(227,171,63,.10), transparent 62%),
+    radial-gradient(rgba(28,35,32,.07) 1px, transparent 1.4px) 0 0 / 12px 12px,
+    var(--card);
+  color: var(--ink); border-radius: 22px; padding: 26px 26px 24px; margin: 0 auto;
   width: min(100%, 340px); aspect-ratio: 5 / 7; max-width: 100%;
-  display: flex; flex-direction: column; justify-content: space-between; text-align: left;
-  box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--card), inset 0 0 0 7.5px rgba(28,35,32,.18);
+  display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.6);
   animation: deal .35s ease-out;
 }
-.card .corner { font: 700 .75rem var(--body); letter-spacing: .14em; text-transform: uppercase; color: #6b6253; }
-.card .corner.end { text-align: right; }
-.card .word { font: 800 clamp(2rem, 10vw, 2.9rem)/1.05 var(--display); text-align: center; overflow-wrap: anywhere; text-wrap: balance; }
-.card .note { font-size: .88rem; text-align: center; color: #4c463c; margin: 0; }
-.card.white { background: var(--ink); color: var(--card); box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--ink), inset 0 0 0 7.5px rgba(244,236,220,.25); }
-.card.white .corner, .card.white .note { color: #b8ae9c; }
+/* Double gold frame */
+.card::before, .card::after { content: ""; position: absolute; pointer-events: none; border-radius: 15px; }
+.card::before { inset: 9px; border: 1.5px solid var(--brass); }
+.card::after { inset: 13px; border: 1px solid var(--line); border-radius: 12px; }
+/* Playing-card corner indices */
+.card .pip { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 2px; color: #8a6a24; z-index: 1; }
+.card .pip b { font: 800 1.05rem/1 var(--display); }
+.card .pip svg { width: 20px; height: 20px; }
+.card .pip.tl { top: 20px; left: 20px; }
+.card .pip.br { bottom: 20px; right: 20px; transform: rotate(180deg); }
+/* Name ribbon */
+.card .ribbon {
+  position: relative; z-index: 1; margin-top: 4px; padding: 5px 18px;
+  font: 700 .72rem var(--body); letter-spacing: .18em; text-transform: uppercase;
+  color: var(--card); background: var(--ink);
+  clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%);
+  max-width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.card .center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%; }
+.card .emblem { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--brass); box-shadow: 0 0 0 5px var(--card), 0 0 0 6px var(--line); background: var(--card); }
+.card .emblem svg { width: 38px; height: 38px; }
+.card .word { font: 800 clamp(2rem, 10vw, 2.8rem)/1.05 var(--display); overflow-wrap: anywhere; text-wrap: balance; letter-spacing: -.01em; }
+.card .rule { display: flex; align-items: center; gap: 10px; width: 70%; color: var(--brass); font-size: .8rem; }
+.card .rule i { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, var(--brass)); }
+.card .rule i:last-child { background: linear-gradient(90deg, var(--brass), transparent); }
+.card .note { position: relative; z-index: 1; font-size: .84rem; line-height: 1.4; color: #5a5245; margin: 0 0 6px; max-width: 24ch; min-height: 2.8em; }
 @keyframes deal { from { transform: translateY(16px) rotate(-2deg); opacity: .2; } to { transform: none; opacity: 1; } }
 
 /* ---------- Motion ---------- */
@@ -194,8 +221,19 @@ button { cursor: pointer; }
 .flip { perspective: 1200px; width: min(100%, 340px); max-width: 100%; aspect-ratio: 5 / 7; margin: 0 auto; }
 .flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: flip .85s cubic-bezier(.35,1.25,.4,1) .25s both; }
 .flip .face { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; margin: 0; animation: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.flip .back { transform: rotateY(180deg); background: repeating-linear-gradient(45deg, var(--felt) 0 14px, var(--felt-deep) 14px 28px); box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--card), inset 0 0 0 9px var(--brass); display: grid; place-items: center; }
-.flip .back span { font: 800 6rem/1 var(--display); color: var(--brass); }
+.flip .back {
+  transform: rotateY(180deg); display: grid; place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, var(--felt) 0 30%, transparent 30.5%),
+    repeating-linear-gradient(45deg, rgba(227,171,63,.16) 0 1.5px, transparent 1.5px 16px),
+    repeating-linear-gradient(-45deg, rgba(227,171,63,.16) 0 1.5px, transparent 1.5px 16px),
+    var(--felt-deep);
+  box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 7px var(--card), inset 0 0 0 9px var(--brass);
+}
+.flip .back::before { inset: 16px; border: 1.5px solid rgba(227,171,63,.55); }
+.flip .back::after { display: none; }
+.flip .back .medal { width: 116px; height: 116px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--brass); box-shadow: 0 0 0 6px var(--felt-deep), 0 0 0 7.5px rgba(227,171,63,.5); background: var(--felt); }
+.flip .back .medal span { font: 800 4.2rem/1 var(--display); color: var(--brass); }
 @keyframes flip { from { transform: rotateY(-180deg) scale(.92); } to { transform: none; } }
 
 /* Elimination: a short pause, then the role is stamped. */
@@ -717,17 +755,22 @@ function showPass() {
 function showCard() {
   const i = G.single != null ? G.single : G.idx;
   const p = G.order[i];
-  const card = p.role === 'white'
-    ? el('div', { class: 'card white' },
-        el('span', { class: 'corner', text: p.name }),
-        el('div', { class: 'word', text: 'Mister White' }),
-        el('p', { class: 'note', text: 'Vous n\'avez pas de mot. Écoutez les indices des autres et bluffez. Si vous êtes éliminé, devinez le mot des civils pour gagner.' }))
-    : el('div', { class: 'card' },
-        el('span', { class: 'corner', text: p.name }),
-        el('div', { class: 'word', text: p.word }),
-        el('p', { class: 'note', text: 'Votre mot secret. Ne le montrez à personne.' }));
+  const isWhite = p.role === 'white';
+  const pip = cls => { const d = el('div', { class: 'pip ' + cls, 'aria-hidden': 'true' }, el('b', { text: 'M' })); d.insertAdjacentHTML('beforeend', MASK_SVG); return d; };
+  const emblem = el('div', { class: 'emblem', 'aria-hidden': 'true' }); emblem.innerHTML = MASK_SVG;
+  const card = el('div', { class: 'card' },
+    pip('tl'), pip('br'),
+    el('span', { class: 'ribbon', text: p.name }),
+    el('div', { class: 'center' },
+      emblem,
+      el('div', { class: 'word', text: isWhite ? 'Mister White' : p.word }),
+      el('div', { class: 'rule', 'aria-hidden': 'true' }, el('i'), '◆', el('i'))),
+    /* Both notes have about the same length so the cards look alike from afar. */
+    el('p', { class: 'note', text: isWhite
+      ? 'Vous n\'avez aucun mot. Écoutez, bluffez, puis devinez le mot des civils.'
+      : 'Votre mot secret. Donnez un indice sans jamais le dire ni le montrer.' }));
   card.classList.add('face', 'front');
-  const back = el('div', { class: 'card face back', 'aria-hidden': 'true' }, el('span', { text: '?' }));
+  const back = el('div', { class: 'card face back', 'aria-hidden': 'true' }, el('div', { class: 'medal' }, el('span', { text: '?' })));
   $('card-slot').replaceChildren(el('div', { class: 'flip' }, el('div', { class: 'flip-inner' }, back, card)));
   show('reveal');
 }
@@ -738,6 +781,7 @@ function nextAfterCard() {
   if (G.idx < G.order.length) showPass(); else showDone();
 }
 
+const MASK_SVG = '<svg viewBox="0 0 48 48" fill="none"><path d="M4 18c0-4 4-6 8-6 5 0 8 3 12 3s7-3 12-3c4 0 8 2 8 6 0 9-5 16-11 16-4 0-6-3-9-3s-5 3-9 3C9 34 4 27 4 18z" fill="#e3ab3f"/><ellipse cx="15" cy="21" rx="4.6" ry="3.4" fill="#1c2320"/><ellipse cx="33" cy="21" rx="4.6" ry="3.4" fill="#1c2320"/><path d="M24 15v4" stroke="#1c2320" stroke-width="1.6" stroke-linecap="round"/></svg>';
 const LABEL = { civil: 'Civil', imp: 'Imposteur', white: 'Mister White' };
 const alive = () => G.order.filter(p => !p.out);
 
