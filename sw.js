@@ -1,5 +1,5 @@
 // Offline support: the app shell is cached on install; fonts are cached the first time they load.
-const CACHE = 'motmasque-v15';
+const CACHE = 'motmasque-v16';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
