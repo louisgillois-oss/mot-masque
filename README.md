@@ -5,7 +5,7 @@ Jeu de déduction entre amis sur un seul téléphone. Chaque joueur reçoit un m
 ## Fonctionnalités
 - Joueurs mémorisés sur le téléphone, présents/absents, ordre de passage
 - Nombre d'imposteurs et de Mister White au choix
-- 15 thèmes (classiques, culture pop, soirée 18+) et thèmes personnalisés
+- 31 thèmes (classiques, culture pop, thèmes originaux) et thèmes personnalisés
 - Élimination tour par tour, devinette écrite de Mister White, détection de la victoire
 - Installable sur l'écran d'accueil et utilisable hors ligne (PWA)
 

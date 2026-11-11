@@ -24,7 +24,7 @@
   background: var(--felt-deep);
 }
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { height: 100%; overflow-x: clip; }
 body {
   margin: 0;
   background: radial-gradient(120% 80% at 50% 0%, var(--felt) 0%, var(--felt-deep) 100%) fixed, var(--felt-deep);
@@ -159,7 +159,61 @@ button { cursor: pointer; }
 .card.white { background: var(--ink); color: var(--card); box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--ink), inset 0 0 0 7.5px rgba(244,236,220,.25); }
 .card.white .corner, .card.white .note { color: #b8ae9c; }
 @keyframes deal { from { transform: translateY(16px) rotate(-2deg); opacity: .2; } to { transform: none; opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .card { animation: none; } }
+
+/* ---------- Motion ---------- */
+/* Each screen slides in; on full-screen stages the elements arrive one after another. */
+.view:not([hidden]) { animation: viewIn .35s cubic-bezier(.2,.8,.2,1) both; }
+.stage > * { animation: rise .5s cubic-bezier(.2,.8,.2,1) both; }
+.stage > *:nth-child(2) { animation-delay: .07s; }
+.stage > *:nth-child(3) { animation-delay: .14s; }
+.stage > *:nth-child(4) { animation-delay: .21s; }
+.stage > *:nth-child(5) { animation-delay: .28s; }
+.stage > *:nth-child(n+6) { animation-delay: .35s; }
+@keyframes viewIn { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* Tactile buttons */
+.btn, .chip, .toggle, .stepper button, .icon-btn { transition: transform .12s ease, background-color .2s ease, color .2s ease, border-color .2s ease, opacity .2s ease; }
+.btn:active:not(:disabled), .chip:active:not(:disabled), .stepper button:active:not(:disabled) { transform: scale(.95); }
+.toggle:active { transform: scale(.85); }
+.btn.primary:not(:disabled) { background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%); background-size: 250% 100%; background-repeat: no-repeat; animation: shine 3.2s ease-in-out 1s infinite; }
+@keyframes shine { 0%, 70% { background-position: 130% 0; } 100% { background-position: -30% 0; } }
+
+/* Small feedback */
+.pop { animation: pop .35s cubic-bezier(.3,1.6,.5,1); }
+@keyframes pop { 0% { transform: scale(.6); } 100% { transform: scale(1); } }
+.players li.new { animation: slideIn .4s cubic-bezier(.2,.8,.2,1); }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); background: rgba(227,171,63,.25); } to { opacity: 1; transform: none; background: transparent; } }
+.progress i { transition: background-color .3s ease, transform .3s ease; }
+.progress i.now { animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.5); } }
+.starter b { animation: glow 2.4s ease-in-out .6s infinite; }
+@keyframes glow { 50% { text-shadow: 0 0 18px rgba(227,171,63,.6); } }
+
+/* The card arrives face down, then flips to show the word. */
+.flip { perspective: 1200px; width: min(100%, 340px); max-width: 100%; aspect-ratio: 5 / 7; margin: 0 auto; }
+.flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: flip .85s cubic-bezier(.35,1.25,.4,1) .25s both; }
+.flip .face { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; margin: 0; animation: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip .back { transform: rotateY(180deg); background: repeating-linear-gradient(45deg, var(--felt) 0 14px, var(--felt-deep) 14px 28px); box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--card), inset 0 0 0 9px var(--brass); display: grid; place-items: center; }
+.flip .back span { font: 800 6rem/1 var(--display); color: var(--brass); }
+@keyframes flip { from { transform: rotateY(-180deg) scale(.92); } to { transform: none; } }
+
+/* Elimination: a short pause, then the role is stamped. */
+#v-elim .verdict { animation: stamp .55s cubic-bezier(.3,1.5,.5,1) .9s both; }
+#v-elim #white-guess, #v-elim .actions { animation: rise .45s ease-out 1.5s both; }
+@keyframes stamp { 0% { opacity: 0; transform: scale(2.4) rotate(-8deg); } 60% { opacity: 1; transform: scale(.92) rotate(2deg); } 100% { opacity: 1; transform: none; } }
+.verdict-msg.ok { animation: pop .5s cubic-bezier(.3,1.6,.5,1); }
+.verdict-msg.ko { animation: shake .5s ease-in-out; }
+@keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+
+/* Game over */
+#winner { animation: stamp .6s cubic-bezier(.3,1.5,.5,1) .15s both; }
+.results li { animation: rise .4s ease-out both; }
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 
 /* Done / results */
 .starter { background: rgba(0,0,0,.2); border: 1.5px solid var(--felt-line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 4px; }
@@ -356,7 +410,6 @@ const GROUPS = [
   { id: 'classiques', name: 'Classiques' },
   { id: 'pop', name: 'Culture pop' },
   { id: 'originaux', name: 'Thèmes originaux' },
-  { id: 'adulte', name: 'Soirée', adult: true },
   { id: 'perso', name: 'Mes thèmes' }
 ];
 const RAW = [
@@ -394,9 +447,6 @@ const RAW = [
   ['emotions','originaux','Émotions & caractère',`Joie|Bonheur;Colère|Rage;Tristesse|Mélancolie;Peur|Angoisse;Timide|Réservé;Jaloux|Envieux;Fier|Orgueilleux;Paresseux|Fatigué;Curieux|Indiscret;Généreux|Gentil;Têtu|Obstiné;Drôle|Moqueur;Honte|Gêne;Surprise|Étonnement;Ennui|Lassitude;Amour|Amitié;Nostalgie|Regret;Stress|Pression;Courageux|Téméraire;Radin|Économe;Optimiste|Naïf;Calme|Zen;Bavard|Commère;Rêveur|Distrait;Menteur|Tricheur;Patient|Persévérant;Fou rire|Crise de larmes;Rancune|Vengeance;Maladroit|Tête en l'air;Râleur|Grincheux`],
   ['famille','originaux','Famille & vie à deux',`Belle-mère|Tante;Cousin|Neveu;Grand-père|Arrière-grand-père;Jumeaux|Triplés;Bébé|Enfant;Frère|Demi-frère;Parrain|Tuteur;Famille recomposée|Famille nombreuse;Repas de famille|Pique-nique;Déménagement|Emménagement;Divorce|Séparation;Anniversaire de mariage|Fête des pères;Album photo|Arbre généalogique;Héritage|Testament;Baby-sitter|Nounou;Dispute|Bouderie;Corvées|Ménage;Argent de poche|Tirelire;Mamie|Tata;Gendre|Belle-fille;Chambre d'amis|Canapé-lit;Fiançailles|Mariage;Grossesse|Accouchement;Fils unique|Aîné;Réunion de famille|Mariage de cousin`],
 
-  ['apero','adulte','Apéro & fête',`Bière|Cidre;Vin rouge|Vin rosé;Vodka|Tequila;Mojito|Spritz;Gueule de bois|Migraine;Boîte de nuit|Bar;Shot|Cocktail;Champagne|Prosecco;Beer pong|Flip cup;Videur|Barman;Before|After;Tinder|Bumble;Ex|Crush;Gin tonic|Whisky coca;Apéro|Brunch;Rhum|Whisky;Kebab|Tacos;Pastis|Anisette;Sauna|Jacuzzi;Action ou vérité|Je n'ai jamais;Panaché|Monaco;Margarita|Piña colada;Sangria|Punch;Cacahuètes|Olives;Planche de charcuterie|Plateau de fromages;Verre à pied|Gobelet;Tournée|Addition;Happy hour|Dernière tournée;Soirée pyjama|Soirée déguisée;Ivre|Pompette;Capitaine de soirée|Taxi;Soirée mousse|Pool party;Décapsuleur|Tire-bouchon;Glaçons|Paille;Jägermeister|Get 27;Limoncello|Amaretto;Rave party|Free party;Chicha|Cigarette;Danse sur la table|Chenille;Jeu à boire|Défi`],
-  ['coquin','adulte','Coquin',`Bisou|Câlin;Préservatif|Pilule;Lingerie|Maillot de bain;Strip-tease|Lap dance;Menottes|Bandeau;Premier rendez-vous|Coup d'un soir;Massage|Caresse;Suçon|Morsure;Fantasme|Rêve érotique;Plan à trois|Échangisme;Speed dating|Site de rencontre;Sextos|Nudes;Kamasutra|Cinquante nuances de Grey;Fessée|Chatouilles;Lune de miel|Saint-Valentin;Talons aiguilles|Porte-jarretelles;Chantilly|Huile de massage;Plan cul|Sex friend;Love hotel|Chambre d'hôtes;Préliminaires|Baiser langoureux;French kiss|Bécot;Sex-toy|Vibromasseur;Nuisette|Déshabillé;String|Tanga;Missionnaire|Levrette;Orgasme|Extase;Libido|Désir;Exhibitionniste|Voyeur;Jeu de rôle|Déguisement coquin;Club libertin|Peep show;Fétichisme|Bondage;Aphrodisiaque|Huître;Pole dance|Burlesque;Douche à deux|Bain moussant;Enterrement de vie de garçon|Enterrement de vie de jeune fille`],
-  ['love','adulte','Love & drague',`Ghosting|Vu sans réponse;Crush|Coup de foudre;Râteau|Friendzone;Jalousie|Possessivité;Rupture|Pause;Swipe|Match;Phrase d'accroche|Compliment;Bouquet de fleurs|Boîte de chocolats;Dîner aux chandelles|Pique-nique romantique;Demande en mariage|Bague de fiançailles;Lettre d'amour|Poème;Couple libre|Relation à distance;Belle-famille|Beaux-parents;Infidélité|Trahison;Déclaration|Aveu;Rencard à l'aveugle|Rencontre arrangée;Love bombing|Red flag;Mots doux|Surnoms;Emménager ensemble|Se fiancer;Premier baiser|Premier « je t'aime »;Ex toxique|Ex collant;Clin d'œil|Sourire charmeur;Texto du soir|Message vocal;Rencontre en soirée|Rencontre au travail;Selfie de couple|Photo de profil;Dragueur|Séducteur`]
 ];
 const BANK = RAW.map(([id, group, name, list]) => ({ id, group, name, pairs: list.split(';').map(p => p.split('|')) }));
 
@@ -413,6 +463,8 @@ const DEFAULTS = {
   used: []
 };
 let S = load();
+S.themes = S.themes.filter(id => BANK.some(t => t.id === id) || S.custom.some(c => c.id === id));   // drop themes that no longer exist
+let justAdded = null;
 function load() {
   try {
     const raw = localStorage.getItem(KEY);
@@ -438,6 +490,13 @@ const el = (tag, props = {}, ...kids) => {
 const rand = n => Math.floor(Math.random() * n);
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 const plural = (n, one, many) => n + ' ' + (n > 1 ? many : one);
+/* Update a counter and make it bounce when its value changes. */
+function setNum(id, value) {
+  const n = $(id);
+  if (n.textContent === String(value)) return;
+  n.textContent = value;
+  n.classList.remove('pop'); void n.offsetWidth; n.classList.add('pop');
+}
 function allThemes() { return BANK.concat(S.custom.map(c => ({ ...c, group: 'perso' }))); }
 function show(view) {
   document.querySelectorAll('.view').forEach(v => v.hidden = v.id !== 'v-' + view);
@@ -483,17 +542,19 @@ function renderPlayers() {
         onclick: () => { S.players.splice(i, 1); changed(); } })
     );
     if (i === 0) li.children[3].disabled = true;
+    if (p.name === justAdded) li.classList.add('new');
     list.append(li);
   });
+  justAdded = null;
   $('present-count').textContent = plural(present().length, 'présent', 'présents');
 }
 
 function renderRoles() {
   const n = present().length;
   const max = Math.max(0, Math.min(maxSpecial(n), n - 2));
-  $('n-imp').textContent = S.imp;
-  $('n-white').textContent = S.white;
-  $('n-civil').textContent = Math.max(0, n - S.imp - S.white);
+  setNum('n-imp', S.imp);
+  setNum('n-white', S.white);
+  setNum('n-civil', Math.max(0, n - S.imp - S.white));
   $('imp-minus').disabled = S.imp <= 0 || (S.imp === 1 && S.white === 0);
   $('white-minus').disabled = S.white <= 0 || (S.white === 1 && S.imp === 0);
   $('imp-plus').disabled = $('white-plus').disabled = S.imp + S.white >= max;
@@ -559,6 +620,7 @@ $('add-form').addEventListener('submit', e => {
   if (!name) return;
   if (S.players.some(p => p.name.toLowerCase() === name.toLowerCase())) { input.select(); return; }
   S.players.push({ name, on: true });
+  justAdded = name;
   input.value = '';
   changed();
 });
@@ -664,7 +726,9 @@ function showCard() {
         el('span', { class: 'corner', text: p.name }),
         el('div', { class: 'word', text: p.word }),
         el('p', { class: 'note', text: 'Votre mot secret. Ne le montrez à personne.' }));
-  $('card-slot').replaceChildren(card);
+  card.classList.add('face', 'front');
+  const back = el('div', { class: 'card face back', 'aria-hidden': 'true' }, el('span', { text: '?' }));
+  $('card-slot').replaceChildren(el('div', { class: 'flip' }, el('div', { class: 'flip-inner' }, back, card)));
   show('reveal');
 }
 
@@ -694,7 +758,36 @@ function checkWinner() {
   return null;
 }
 
-function endGame(winner) { G.over = true; G.winner = winner; showDone(); }
+function endGame(winner) {
+  G.over = true; G.winner = winner; showDone();
+  if (winner !== 'stopped') confetti(winner === 'civil' ? ['#e6efe9', '#e3ab3f', '#94b8ab'] : ['#f08a6c', '#e3ab3f', '#f4ecdc']);
+}
+
+/* Short confetti burst drawn on a temporary canvas. */
+function confetti(colors) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = el('canvas', { id: 'confetti', 'aria-hidden': 'true' });
+  document.body.append(c);
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = c.width = innerWidth * dpr, H = c.height = innerHeight * dpr;
+  const parts = Array.from({ length: 140 }, () => ({
+    x: W / 2 + (Math.random() - .5) * W * .3, y: H * .35,
+    vx: (Math.random() - .5) * 18 * dpr, vy: (-Math.random() * 16 - 6) * dpr,
+    w: (6 + Math.random() * 6) * dpr, h: (10 + Math.random() * 8) * dpr,
+    r: Math.random() * 6, vr: (Math.random() - .5) * .4, color: colors[rand(colors.length)]
+  }));
+  const start = performance.now();
+  (function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of parts) {
+      p.vy += .45 * dpr; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.r * 2))); ctx.restore();
+    }
+    if (t - start < 3200) requestAnimationFrame(frame); else c.remove();
+  })(start);
+}
 
 function showDone() {
   $('play-wrap').hidden = G.over;
@@ -733,7 +826,7 @@ function showDone() {
     $('res-civil').textContent = G.civil;
     $('res-imp').textContent = G.imp;
     $('res-theme').textContent = 'Thème : ' + G.theme;
-    $('results').replaceChildren(...G.order.map(p => el('li', { class: p.out ? 'out' : '' },
+    $('results').replaceChildren(...G.order.map((p, i) => el('li', { class: p.out ? 'out' : '', style: `animation-delay:${.5 + i * .07}s` },
       el('span', { class: 'who', text: p.name }),
       el('span', { class: 'pill ' + p.role, text: LABEL[p.role] }),
       el('span', { class: 'what', text: (p.word || 'aucun mot') + (p.out ? ` · éliminé au tour ${p.out}` : ' · encore en jeu') }))));
