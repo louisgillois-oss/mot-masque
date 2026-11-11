@@ -7,7 +7,7 @@ Jeu de déduction entre amis sur un seul téléphone. Chaque joueur reçoit un m
 - Nombre d'imposteurs et de Mister White au choix
 - 31 thèmes et 1 585 paires (classiques, culture pop, thèmes originaux), plus des thèmes personnalisés
 - Élimination tour par tour, devinette écrite de Mister White, détection de la victoire
-- Variantes : imposteurs aveugles, mode Duo, manches sans intrus (fréquence réglable)
+- Variantes : mode difficile, imposteurs aveugles, mode Duo, manches sans intrus (fréquence réglable)
 - Points cumulés sur plusieurs manches, classement et podium final (remis à zéro à la fin de la partie)
 - Installable sur l'écran d'accueil et utilisable hors ligne (PWA)
 

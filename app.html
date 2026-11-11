@@ -529,6 +529,10 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
         <button type="button" class="switch" id="sw-score" role="switch" aria-checked="true" aria-label="Compter les points"></button>
       </div>
       <div class="variant">
+        <div class="v-text"><b>Mode difficile</b><span>Les deux mots viennent du même thème mais de deux paires différentes : ils peuvent être très éloignés. Rien ne l'indique pendant la partie.</span></div>
+        <button type="button" class="switch" id="sw-hard" role="switch" aria-checked="false" aria-label="Mode difficile"></button>
+      </div>
+      <div class="variant">
         <div class="v-text"><b>Imposteurs aveugles</b><span>Les imposteurs savent qu'ils le sont, mais ne voient que le thème de la manche.</span></div>
         <button type="button" class="switch" id="sw-blind" role="switch" aria-checked="false" aria-label="Imposteurs aveugles"></button>
       </div>
@@ -753,7 +757,7 @@ const DEFAULTS = {
     { name: 'Dylan', on: true }, { name: 'Emma', on: true }
   ],
   imp: 1, white: 0,
-  blind: false, duo: false, clean: 0,
+  blind: false, duo: false, clean: 0, hard: false,
   score: true, scores: {}, rounds: 0, scoreKey: '',
   themes: ['nourriture', 'animaux', 'maison', 'lieux'],
   custom: [],
@@ -908,6 +912,7 @@ function renderSummary() {
   const parts = [plural(n, 'joueur', 'joueurs'), plural(S.imp, 'imposteur', 'imposteurs')];
   if (S.white) parts.push(S.white + ' Mister White');
   parts.push(plural(nThemes, 'thème', 'thèmes'));
+  if (S.hard) parts.push('difficile');
   if (S.blind) parts.push('aveugles');
   if (S.duo) parts.push('duo');
   if (S.clean) parts.push('sans intrus 1/' + S.clean);
@@ -920,6 +925,7 @@ const CLEAN_STEPS = [0, 100, 50, 30, 20, 15, 10, 8, 6, 5, 4, 3, 2];
 function renderVariants() {
   $('sw-score').setAttribute('aria-checked', String(S.score));
   $('sw-blind').setAttribute('aria-checked', String(S.blind));
+  $('sw-hard').setAttribute('aria-checked', String(S.hard));
   $('sw-duo').setAttribute('aria-checked', String(S.duo));
   if (!CLEAN_STEPS.includes(S.clean)) S.clean = 0;
   const k = CLEAN_STEPS.indexOf(S.clean);
@@ -1004,11 +1010,28 @@ function pickPair() {
   return choice;
 }
 
+/* Hard mode: pick a theme (weighted by its size), then one word from each of two different pairs.
+   Words too close for Mister White's guess are redrawn. */
+function pickHardPair() {
+  const themes = allThemes().filter(t => S.themes.includes(t.id) && t.pairs.length >= 2);
+  if (!themes.length) return null;
+  const total = themes.reduce((n, t) => n + t.pairs.length, 0);
+  let r = Math.random() * total, t = themes[0];
+  for (const th of themes) { r -= th.pairs.length; if (r < 0) { t = th; break; } }
+  for (let tries = 0; tries < 30; tries++) {
+    const i = rand(t.pairs.length);
+    let j = rand(t.pairs.length - 1); if (j >= i) j++;
+    const a = t.pairs[i][rand(2)], b = t.pairs[j][rand(2)];
+    if (a.toLowerCase() !== b.toLowerCase() && !guessMatches(a, b) && !guessMatches(b, a)) return { theme: t.name, pair: [a, b] };
+  }
+  return null;
+}
+
 function startGame() {
   const players = present();
   const key = players.map(p => p.name).sort().join('|');
   if (key !== S.scoreKey) { S.scores = {}; S.rounds = 0; S.scoreKey = key; }
-  const { theme, pair } = pickPair();
+  const { theme, pair } = (S.hard && pickHardPair()) || pickPair();
   const [civil, imp] = Math.random() < .5 ? pair : [pair[1], pair[0]];
   // Secret draw: a round where everybody gets the same word.
   const clean = S.clean > 0 && Math.random() < 1 / S.clean;
@@ -1447,6 +1470,7 @@ confirmTap($('abort-btn'), 'Toucher encore pour abandonner', () => { G = null; s
 $('elim-btn').onclick = eliminate;
 confirmTap($('nobody-btn'), 'Toucher encore : personne n\'est suspect', voteNobody);
 $('sw-blind').onclick = () => { S.blind = !S.blind; changed(); };
+$('sw-hard').onclick = () => { S.hard = !S.hard; changed(); };
 $('sw-score').onclick = () => { S.score = !S.score; changed(); };
 /* End of the party: podium, then every score goes back to zero. */
 function showPodium() {
