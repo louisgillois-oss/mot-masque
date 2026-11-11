@@ -1,5 +1,12 @@
 <title>Mot Masqué</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="google" content="notranslate">
+<script>
+  /* The page is French: stop browsers from "translating" the secret words (Thé -> "le", Prune -> "élaguer"…). */
+  document.documentElement.lang = 'fr';
+  document.documentElement.setAttribute('translate', 'no');
+  document.documentElement.classList.add('notranslate');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;700&display=swap">
@@ -324,7 +331,7 @@ button { cursor: pointer; }
 </style>
 
 <!-- ================= SETUP ================= -->
-<main id="v-setup" class="view">
+<main translate="no" id="v-setup" class="view notranslate">
   <header class="brand">
     <h1>Mot <span>Masqué</span></h1>
     <small>un seul téléphone</small>
@@ -396,7 +403,7 @@ button { cursor: pointer; }
 </main>
 
 <!-- ================= CUSTOM THEME EDITOR ================= -->
-<main id="v-editor" class="view" hidden>
+<main translate="no" id="v-editor" class="view notranslate" hidden>
   <header class="brand"><h1 id="editor-title">Nouveau thème</h1></header>
   <form id="editor-form" class="panel" autocomplete="off">
     <div class="field">
@@ -418,7 +425,7 @@ button { cursor: pointer; }
 </main>
 
 <!-- ================= PASS THE PHONE ================= -->
-<main id="v-pass" class="view stage" hidden>
+<main translate="no" id="v-pass" class="view stage notranslate" hidden>
   <div class="progress" id="progress"></div>
   <p class="eyebrow">Passez le téléphone à</p>
   <p class="big" id="pass-name"></p>
@@ -430,7 +437,7 @@ button { cursor: pointer; }
 </main>
 
 <!-- ================= SECRET WORD ================= -->
-<main id="v-reveal" class="view stage" hidden>
+<main translate="no" id="v-reveal" class="view stage notranslate" hidden>
   <div id="card-slot"></div>
   <div class="actions">
     <button class="btn primary wide" id="hide-btn" type="button">J'ai retenu, cacher</button>
@@ -438,7 +445,7 @@ button { cursor: pointer; }
 </main>
 
 <!-- ================= GAME IN PROGRESS / GAME OVER ================= -->
-<main id="v-done" class="view stage" hidden>
+<main translate="no" id="v-done" class="view stage notranslate" hidden>
   <div id="play-wrap" class="panel" style="gap:22px">
     <p class="eyebrow" id="round-label"></p>
     <div class="starter">
@@ -480,7 +487,7 @@ button { cursor: pointer; }
 </main>
 
 <!-- ================= ELIMINATION ================= -->
-<main id="v-elim" class="view stage" hidden>
+<main translate="no" id="v-elim" class="view stage notranslate" hidden>
   <p class="eyebrow">Joueur éliminé</p>
   <p class="big" id="elim-name"></p>
   <p class="sub">était</p>

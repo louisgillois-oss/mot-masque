@@ -4,9 +4,10 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 const body = fs.readFileSync(path.join(root, 'app.html'), 'utf8');
 const html = `<!doctype html>
-<html lang="fr">
+<html lang="fr" translate="no" class="notranslate">
 <head>
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f3a32">
 <meta name="apple-mobile-web-app-capable" content="yes">
