@@ -315,7 +315,46 @@ button { cursor: pointer; }
 /* Game over */
 #winner { animation: stamp .6s cubic-bezier(.3,1.5,.5,1) .15s both; }
 .results li { animation: rise .4s ease-out both; }
-#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+#confetti, .fx-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+/* ---------- Victory effects: one per winning side ---------- */
+#win-fx { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+/* Civilians: slow golden sunburst behind the title */
+#win-fx.civil .rays { position: absolute; left: 50%; top: 22%; width: 160vmax; aspect-ratio: 1; transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(rgba(227,171,63,.16) 0 4deg, transparent 4deg 14deg);
+  -webkit-mask: radial-gradient(circle, #000 0 18%, transparent 46%); mask: radial-gradient(circle, #000 0 18%, transparent 46%);
+  animation: raysIn 4.2s ease-out both, spin 24s linear infinite; }
+@keyframes raysIn { 0% { opacity: 0; } 15% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes spin { to { rotate: 360deg; } }
+/* Impostors: coral pulse on the edges */
+#win-fx.imp .vignette { position: absolute; inset: 0; box-shadow: inset 0 0 22vmin 4vmin rgba(240,138,108,.55); animation: pulseRed 2.6s ease-out both; }
+@keyframes pulseRed { 0% { opacity: 0; } 12% { opacity: 1; } 30% { opacity: .35; } 45% { opacity: .9; } 100% { opacity: 0; } }
+/* Mister White: the room darkens, an ivory ring spreads */
+#win-fx.white .dim { position: absolute; inset: 0; background: rgba(4,8,7,.6); animation: dim 4.2s ease-out both; }
+#win-fx.white .ring { position: absolute; left: 50%; top: 24%; width: 30vmin; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%);
+  border: 1px solid rgba(216,204,178,.8); box-shadow: 0 0 0 10px rgba(216,204,178,.08); animation: ring 3.2s cubic-bezier(.2,.7,.2,1) both; }
+#win-fx.white .ring.r2 { animation-delay: .5s; }
+@keyframes dim { 0% { opacity: 0; } 15% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes ring { from { opacity: 1; transform: translate(-50%, -50%) scale(.2); } to { opacity: 0; transform: translate(-50%, -50%) scale(4.5); } }
+/* Duo: two diamonds come from each side and interlock */
+#win-fx.duo .dia { position: absolute; top: 11%; width: 19vmin; aspect-ratio: 1; border: 2px solid var(--alert);
+  box-shadow: 0 0 18px rgba(240,138,108,.5); background: rgba(240,138,108,.07); }
+#win-fx.duo .dia.l { left: 50%; animation: diaL 3.6s cubic-bezier(.2,.9,.25,1) both; }
+#win-fx.duo .dia.r { left: 50%; animation: diaR 3.6s cubic-bezier(.2,.9,.25,1) both; }
+@keyframes diaL { 0% { opacity: 0; transform: translate(-260%, -50%) rotate(45deg); } 30% { opacity: 1; transform: translate(-82%, -50%) rotate(45deg); } 80% { opacity: 1; transform: translate(-82%, -50%) rotate(45deg); } 100% { opacity: 0; transform: translate(-82%, -50%) rotate(45deg); } }
+@keyframes diaR { 0% { opacity: 0; transform: translate(160%, -50%) rotate(45deg); } 30% { opacity: 1; transform: translate(-18%, -50%) rotate(45deg); } 80% { opacity: 1; transform: translate(-18%, -50%) rotate(45deg); } 100% { opacity: 0; transform: translate(-18%, -50%) rotate(45deg); } }
+
+/* Title entrance per side */
+#over-wrap[data-win="civil"] #winner { color: var(--chalk); text-shadow: 0 0 22px rgba(227,171,63,.45); }
+#over-wrap[data-win="imp"] #winner { color: var(--alert); animation: slam .55s cubic-bezier(.3,1.4,.5,1) .15s both; }
+#over-wrap[data-win="imp"] { animation: shakeScreen .45s ease-in-out .55s both; }
+#over-wrap[data-win="white"] #winner { color: #e9dfc8; animation: ghostIn 1.6s ease-out .2s both; }
+#over-wrap[data-win="duo"] #winner { color: var(--alert); animation: joinIn .9s cubic-bezier(.2,.9,.25,1) .4s both; }
+@keyframes slam { 0% { opacity: 0; transform: scale(2.6); } 70% { opacity: 1; transform: scale(.94); } 100% { opacity: 1; transform: none; } }
+@keyframes shakeScreen { 0%, 100% { transform: none; } 20% { transform: translate(-6px, 2px); } 40% { transform: translate(6px, -2px); } 60% { transform: translate(-4px, 1px); } 80% { transform: translate(3px, 0); } }
+@keyframes ghostIn { 0% { opacity: 0; filter: blur(14px); letter-spacing: .25em; } 100% { opacity: 1; filter: blur(0); letter-spacing: .02em; } }
+@keyframes joinIn { 0% { opacity: 0; letter-spacing: .6em; } 100% { opacity: 1; letter-spacing: .02em; } }
+
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -1131,9 +1170,100 @@ function renderRanking(ol, list, deltas, prev) {
 
 function endGame(winner) {
   G.over = true; G.winner = winner;
+  $('over-wrap').dataset.win = winKind(winner) || 'none';
   if (S.score && !G.scored) { G.scored = true; scoreRound(winner); }
   showDone();
-  if (winner !== 'stopped' && winner !== 'cleanLose') confetti(['civil', 'cleanWin'].includes(winner) ? ['#e6efe9', '#e3ab3f', '#94b8ab'] : ['#f08a6c', '#e3ab3f', '#f4ecdc']);
+  celebrate(winKind(winner));
+}
+
+/* Which celebration fits the winning side. */
+function winKind(winner) {
+  if (winner === 'civil' || winner === 'cleanWin') return 'civil';
+  if (winner === 'imp' || winner === 'both') return 'imp';
+  if (winner === 'whiteSurvive' || winner === 'whiteGuess') return 'white';
+  if (winner === 'duo') return 'duo';
+  if (winner === 'nobodyWrong') return G.order.some(p => p.role === 'imp') ? 'imp' : 'white';
+  return null;   // stopped, cleanLose
+}
+
+/* Small particle engine on a temporary canvas. Each particle carries its own draw function. */
+const MASK_PATH = typeof Path2D !== 'undefined' ? new Path2D('M4 18c0-4 4-6 8-6 5 0 8 3 12 3s7-3 12-3c4 0 8 2 8 6 0 9-5 16-11 16-4 0-6-3-9-3s-5 3-9 3C9 34 4 27 4 18z') : null;
+function runParticles(make, duration) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = el('canvas', { class: 'fx-canvas', 'aria-hidden': 'true' });
+  document.body.append(c);
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = c.width = innerWidth * dpr, H = c.height = innerHeight * dpr;
+  const parts = make(W, H, dpr);
+  const start = performance.now();
+  (function frame(t) {
+    const age = t - start;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of parts) {
+      if (age < (p.delay || 0)) continue;
+      p.vy += (p.g ?? .45) * dpr; p.vx *= p.drag ?? .99; p.vy *= p.dragY ?? 1;
+      p.x += p.vx; p.y += p.vy; p.r += p.vr || 0;
+      ctx.save(); ctx.globalAlpha = p.alpha ? p.alpha(age) : 1; ctx.translate(p.x, p.y); ctx.rotate(p.r);
+      p.draw(ctx, p); ctx.restore();
+    }
+    if (age < duration) requestAnimationFrame(frame); else c.remove();
+  })(start);
+}
+const pick = a => a[rand(a.length)];
+const drawRect = (ctx, p) => { ctx.fillStyle = p.color; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.r * 2))); };
+const drawDiamond = (ctx, p) => { ctx.fillStyle = p.color; ctx.beginPath(); ctx.moveTo(0, -p.w); ctx.lineTo(p.w * .7, 0); ctx.lineTo(0, p.w); ctx.lineTo(-p.w * .7, 0); ctx.closePath(); ctx.fill(); };
+const drawMask = (ctx, p) => {
+  if (!MASK_PATH) return drawDiamond(ctx, p);
+  const k = p.w / 48; ctx.scale(k, k); ctx.translate(-24, -23);
+  ctx.fillStyle = p.color; ctx.fill(MASK_PATH);
+  ctx.fillStyle = '#1c2320'; ctx.beginPath(); ctx.ellipse(15, 21, 4.6, 3.4, 0, 0, 7); ctx.ellipse(33, 21, 4.6, 3.4, 0, 0, 7); ctx.fill();
+};
+const drawSmoke = (ctx, p) => {
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, p.w);
+  g.addColorStop(0, 'rgba(233,223,200,.28)'); g.addColorStop(1, 'rgba(233,223,200,0)');
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, p.w, 0, 7); ctx.fill();
+};
+
+/* Overlay of CSS shapes (rays, vignette, rings, diamonds), removed after the effect. */
+function overlay(kind, children, ms) {
+  document.getElementById('win-fx')?.remove();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const o = el('div', { id: 'win-fx', class: kind, 'aria-hidden': 'true' }, ...children);
+  document.body.append(o);
+  setTimeout(() => o.remove(), ms);
+}
+
+function celebrate(kind) {
+  if (kind === 'civil') {
+    overlay('civil', [el('div', { class: 'rays' })], 4300);
+    runParticles((W, H, dpr) => Array.from({ length: 150 }, (_, i) => ({
+      x: Math.random() * W, y: -20 * dpr - Math.random() * H * .5, vx: (Math.random() - .5) * 3 * dpr, vy: (2 + Math.random() * 3) * dpr,
+      g: .06, drag: .995, w: (6 + Math.random() * 6) * dpr, h: (10 + Math.random() * 8) * dpr, r: Math.random() * 6, vr: (Math.random() - .5) * .3,
+      color: pick(['#e3ab3f', '#f4ecdc', '#94b8ab', '#e3ab3f']), draw: drawRect })), 4200);
+  } else if (kind === 'imp') {
+    overlay('imp', [el('div', { class: 'vignette' })], 2700);
+    runParticles((W, H, dpr) => Array.from({ length: 34 }, () => ({
+      x: W / 2 + (Math.random() - .5) * W * .2, y: H * .3, vx: (Math.random() - .5) * 22 * dpr, vy: (-Math.random() * 15 - 5) * dpr,
+      g: .5, w: (36 + Math.random() * 26) * dpr, r: (Math.random() - .5), vr: (Math.random() - .5) * .25, delay: 180,
+      color: pick(['#f08a6c', '#f08a6c', '#e3ab3f']), draw: drawMask })), 3200);
+  } else if (kind === 'white') {
+    overlay('white', [el('div', { class: 'dim' }), el('div', { class: 'ring' }), el('div', { class: 'ring r2' })], 4300);
+    runParticles((W, H, dpr) => Array.from({ length: 60 }, () => {
+      const life = 2600 + Math.random() * 1400, delay = Math.random() * 1200;
+      return { x: Math.random() * W, y: H + Math.random() * H * .2, vx: (Math.random() - .5) * .8 * dpr, vy: (-2.2 - Math.random() * 2.4) * dpr,
+        g: 0, drag: .998, w: (30 + Math.random() * 50) * dpr, delay,
+        alpha: age => Math.max(0, Math.sin(Math.min(1, (age - delay) / life) * Math.PI)), draw: drawSmoke };
+    }), 4300);
+  } else if (kind === 'duo') {
+    overlay('duo', [el('div', { class: 'dia l' }), el('div', { class: 'dia r' })], 3700);
+    runParticles((W, H, dpr) => Array.from({ length: 120 }, (_, i) => {
+      const left = i % 2 === 0;
+      return { x: left ? 0 : W, y: H * .95, vx: (left ? 1 : -1) * (8 + Math.random() * 12) * dpr, vy: (-14 - Math.random() * 12) * dpr,
+        g: .42, w: (5 + Math.random() * 6) * dpr, r: Math.random() * 6, vr: (Math.random() - .5) * .3, delay: 900 + Math.random() * 500,
+        color: pick(['#f08a6c', '#e3ab3f', '#f4ecdc']), draw: drawDiamond };
+    }), 4400);
+  }
 }
 
 /* Short confetti burst drawn on a temporary canvas. */
