@@ -198,6 +198,10 @@ button { cursor: pointer; }
 .card .word { position: relative; font: 400 9.5cqw/1.08 "Limelight", Georgia, serif; max-width: 50cqw; overflow-wrap: break-word; hyphens: manual; text-wrap: balance; }
 .card .word.long { font-size: 7.2cqw; }
 .card .word.xlong { font-size: 5.6cqw; }
+.card .theme-tag { display: flex; align-items: center; justify-content: center; gap: 2.4cqw; max-width: 74cqw; margin-top: 2cqw;
+  font: 700 3.4cqw/1.3 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--line); text-align: center; }
+.card .theme-tag::before, .card .theme-tag::after { content: ""; flex: 0 0 6cqw; height: 1px; background: var(--line-soft); }
+.card.duo .theme-tag { margin-top: 1cqw; }
 .card .note { position: relative; z-index: 1; margin: 0 0 8cqw; font-size: 3.9cqw; line-height: 1.45; color: var(--sub); max-width: 64cqw; }
 
 /* Mister White: darker card, ivory lines, stepped rays and a double ring */
@@ -1077,7 +1081,9 @@ function showCard() {
     el('div', { class: 'mid' },
       kicker ? el('span', { class: 'kicker', text: kicker }) : null,
       duoImp ? el('div', { class: 'twins', 'aria-hidden': 'true' }, el('i'), el('i')) : null,
-      el('div', { class: 'shape' + (duoImp ? ' bare' : '') }, el('div', { class: 'word' + size, text: word }))),
+      el('div', { class: 'shape' + (duoImp ? ' bare' : '') }, el('div', { class: 'word' + size, text: word })),
+      /* The theme helps understand the word. Mister White never sees it; the blind impostor already has it as the word. */
+      !isWhite && !blindImp ? el('span', { class: 'theme-tag', text: 'Thème · ' + G.theme }) : null),
     el('p', { class: 'note', text: note }));
   const back = el('div', { class: 'card face back', 'aria-hidden': 'true' },
     el('div', { class: 'lattice' }), el('div', { class: 'ring r3' }),
