@@ -182,8 +182,27 @@ button { cursor: pointer; }
 .card .emblem svg { width: 38px; height: 38px; }
 .card .word { font: 800 clamp(2rem, 10vw, 2.8rem)/1.05 var(--display); overflow-wrap: anywhere; text-wrap: balance; letter-spacing: -.01em; }
 .card .rule { display: flex; align-items: center; gap: 10px; width: 70%; color: var(--brass); font-size: .8rem; }
-.card .rule i { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, var(--brass)); }
-.card .rule i:last-child { background: linear-gradient(90deg, var(--brass), transparent); }
+.card .rule i { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, currentColor); }
+.card .rule i:last-child { background: linear-gradient(90deg, currentColor, transparent); }
+.card .kicker { font: 800 .72rem var(--body); letter-spacing: .18em; text-transform: uppercase; color: #a8431f; margin-bottom: -6px; }
+/* Mister White: dark card */
+.card.white {
+  background: radial-gradient(circle at 50% 50%, rgba(227,171,63,.16), transparent 62%),
+    radial-gradient(rgba(244,236,220,.09) 1px, transparent 1.4px) 0 0 / 12px 12px, var(--ink);
+  color: var(--card);
+}
+.card.white::after { border-color: rgba(244,236,220,.22); }
+.card.white .ribbon { background: var(--brass); color: var(--ink); }
+.card.white .emblem { background: var(--ink); box-shadow: 0 0 0 5px var(--ink), 0 0 0 6px rgba(244,236,220,.25); }
+.card.white .note { color: #c9bfae; }
+.card.white .pip { color: var(--brass); }
+.card.white .kicker { color: var(--brass); }
+/* Impostors who know their role (blind or duo): coral accents */
+.card.known { background: radial-gradient(circle at 50% 50%, rgba(240,138,108,.18), transparent 62%), radial-gradient(rgba(28,35,32,.07) 1px, transparent 1.4px) 0 0 / 12px 12px, var(--card); }
+.card.known::before { border-color: var(--alert); }
+.card.known .ribbon { background: #a8431f; color: var(--card); }
+.card.known .emblem { border-color: var(--alert); }
+.card.known .rule, .card.known .pip { color: #a8431f; }
 .card .note { position: relative; z-index: 1; font-size: .84rem; line-height: 1.4; color: #5a5245; margin: 0 0 6px; max-width: 24ch; min-height: 2.8em; }
 @keyframes deal { from { transform: translateY(16px) rotate(-2deg); opacity: .2; } to { transform: none; opacity: 1; } }
 
@@ -238,7 +257,8 @@ button { cursor: pointer; }
 
 /* Elimination: a short pause, then the role is stamped. */
 #v-elim .verdict { animation: stamp .55s cubic-bezier(.3,1.5,.5,1) .9s both; }
-#v-elim #white-guess, #v-elim .actions { animation: rise .45s ease-out 1.5s both; }
+#v-elim #white-guess, #v-elim #duo-guess, #v-elim .actions { animation: rise .45s ease-out 1.5s both; }
+#v-nobody .verdict { animation: stamp .55s cubic-bezier(.3,1.5,.5,1) .5s both; }
 @keyframes stamp { 0% { opacity: 0; transform: scale(2.4) rotate(-8deg); } 60% { opacity: 1; transform: scale(.92) rotate(2deg); } 100% { opacity: 1; transform: none; } }
 .verdict-msg.ok { animation: pop .5s cubic-bezier(.3,1.6,.5,1); }
 .verdict-msg.ko { animation: shake .5s ease-in-out; }
@@ -278,6 +298,22 @@ button { cursor: pointer; }
 .wordpair > div { flex: 1; min-width: 0; background: rgba(0,0,0,.2); border-radius: 14px; padding: 12px; }
 .wordpair small { display: block; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
 .wordpair b { font: 800 1.3rem/1.2 var(--display); overflow-wrap: anywhere; }
+
+/* Variants */
+.variants { display: flex; flex-direction: column; border-top: 1px solid var(--felt-line); }
+.variant { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--felt-line); }
+.variant.wide { flex-direction: column; align-items: stretch; gap: 10px; }
+.v-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.v-text b { font: 600 1.02rem var(--display); }
+.v-text span { color: var(--muted); font-size: .85rem; line-height: 1.4; }
+.switch { position: relative; flex: none; width: 52px; height: 30px; border-radius: 999px; border: 0; padding: 0; background: var(--felt-line); transition: background-color .2s ease; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--chalk); transition: transform .25s cubic-bezier(.3,1.4,.5,1); }
+.switch[aria-checked="true"] { background: var(--brass); }
+.switch[aria-checked="true"]::after { transform: translateX(22px); background: var(--brass-ink); }
+.freq { display: flex; align-items: center; gap: 10px; }
+.freq button { width: 44px; height: 40px; border-radius: 12px; border: 0; background: var(--felt-line); font-size: 1.3rem; font-weight: 700; flex: none; }
+.freq button:disabled { opacity: .3; }
+.freq span { flex: 1; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
 
 /* Editor */
 .field { display: flex; flex-direction: column; gap: 6px; }
@@ -322,6 +358,28 @@ button { cursor: pointer; }
       </div>
     </div>
     <p class="hint" id="roles-hint"></p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-variants">
+    <h2 id="h-variants">Variantes</h2>
+    <div class="variants">
+      <div class="variant">
+        <div class="v-text"><b>Imposteurs aveugles</b><span>Les imposteurs savent qu'ils le sont, mais ne voient que le thème de la manche.</span></div>
+        <button type="button" class="switch" id="sw-blind" role="switch" aria-checked="false" aria-label="Imposteurs aveugles"></button>
+      </div>
+      <div class="variant">
+        <div class="v-text"><b>Mode Duo</b><span>Deux imposteurs font équipe sans savoir qui est l'autre. Éliminé, l'un d'eux désigne son partenaire : s'il a raison, le duo gagne.</span></div>
+        <button type="button" class="switch" id="sw-duo" role="switch" aria-checked="false" aria-label="Mode Duo"></button>
+      </div>
+      <div class="variant wide">
+        <div class="v-text"><b>Manches sans intrus</b><span>De temps en temps, tout le monde reçoit le même mot. Votez « Personne » pour gagner.</span></div>
+        <div class="freq">
+          <button type="button" id="clean-minus" aria-label="Plus rare">−</button>
+          <span id="clean-label" aria-live="polite"></span>
+          <button type="button" id="clean-plus" aria-label="Plus fréquent">+</button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="panel" aria-labelledby="h-themes">
@@ -394,6 +452,7 @@ button { cursor: pointer; }
       <p class="sub">Après le vote, touchez le joueur éliminé.</p>
       <div class="forgot" id="alive-list"></div>
       <button class="btn primary wide" id="elim-btn" type="button" disabled>Choisissez un joueur</button>
+      <button class="btn ghost wide" id="nobody-btn" type="button" hidden>Personne n'est suspect</button>
     </div>
 
     <div class="panel">
@@ -408,7 +467,7 @@ button { cursor: pointer; }
     <p class="sub" id="winner-sub"></p>
     <div class="wordpair">
       <div><small>Civils</small><b id="res-civil"></b></div>
-      <div><small>Imposteurs</small><b id="res-imp"></b></div>
+      <div><small id="res-imp-label">Imposteurs</small><b id="res-imp"></b></div>
     </div>
     <p class="sub" id="res-theme"></p>
     <ul class="results" id="results"></ul>
@@ -435,9 +494,25 @@ button { cursor: pointer; }
     </div>
     <button class="btn primary wide" id="guess-submit" type="submit">Valider ma réponse</button>
   </form>
+  <div id="duo-guess" class="panel" hidden>
+    <p class="sub">Dernière chance&nbsp;: passez le téléphone à l'imposteur éliminé. Qui est son partenaire de duo&nbsp;? S'il a raison, le duo gagne la partie.</p>
+    <div class="forgot" id="duo-list"></div>
+    <button class="btn primary wide" id="duo-submit" type="button" disabled>Choisissez un joueur</button>
+  </div>
   <p class="verdict-msg" id="guess-result" hidden></p>
   <div class="actions">
     <button class="btn primary wide" id="elim-continue" type="button">Continuer</button>
+  </div>
+</main>
+
+<!-- ================= "NOBODY" VOTE WAS WRONG ================= -->
+<main id="v-nobody" class="view stage" hidden>
+  <p class="eyebrow">Vote : personne</p>
+  <p class="big">Raté !</p>
+  <p class="verdict imp">Il y a un intrus</p>
+  <p class="sub">Au moins un intrus se cache parmi vous. Personne n'est éliminé et on passe au tour suivant.</p>
+  <div class="actions">
+    <button class="btn primary wide" id="nobody-continue" type="button">Tour suivant</button>
   </div>
 </main>
 
@@ -496,6 +571,7 @@ const DEFAULTS = {
     { name: 'Dylan', on: true }, { name: 'Emma', on: true }
   ],
   imp: 1, white: 0,
+  blind: false, duo: false, clean: 0,
   themes: ['nourriture', 'animaux', 'maison', 'lieux'],
   custom: [],
   used: []
@@ -557,6 +633,7 @@ const maxSpecial = n => Math.floor(n / 2);   // civilians must be at least as ma
 function clampRoles() {
   const n = present().length;
   const max = Math.max(0, Math.min(maxSpecial(n), n - 2));
+  if (S.duo) { S.imp = 2; S.white = Math.max(0, Math.min(S.white, max - 2)); return; }   // a duo is always exactly 2 impostors
   if (S.imp + S.white > max) {
     S.white = Math.min(S.white, max);
     S.imp = Math.max(0, max - S.white);
@@ -593,12 +670,14 @@ function renderRoles() {
   setNum('n-imp', S.imp);
   setNum('n-white', S.white);
   setNum('n-civil', Math.max(0, n - S.imp - S.white));
-  $('imp-minus').disabled = S.imp <= 0 || (S.imp === 1 && S.white === 0);
+  $('imp-minus').disabled = S.duo || S.imp <= 0 || (S.imp === 1 && S.white === 0);
   $('white-minus').disabled = S.white <= 0 || (S.white === 1 && S.imp === 0);
-  $('imp-plus').disabled = $('white-plus').disabled = S.imp + S.white >= max;
+  $('imp-plus').disabled = S.duo || S.imp + S.white >= max;
+  $('white-plus').disabled = S.imp + S.white >= max;
   const hint = $('roles-hint');
   if (n < 3) { hint.textContent = 'Il faut au moins 3 joueurs présents.'; hint.className = 'hint warn'; }
-  else { hint.textContent = `Avec ${n} joueurs : jusqu'à ${max} imposteurs et Mister White au total. Mister White ne reçoit aucun mot.`; hint.className = 'hint'; }
+  else if (S.duo && max < 2) { hint.textContent = 'Le mode Duo demande au moins 4 joueurs présents.'; hint.className = 'hint warn'; }
+  else { hint.textContent = `Avec ${n} joueurs : jusqu'à ${max} imposteurs et Mister White au total. Mister White ne reçoit aucun mot.` + (S.duo ? ' Mode Duo : 2 imposteurs.' : ''); hint.className = 'hint'; }
 }
 
 function renderThemes() {
@@ -640,16 +719,31 @@ function renderSummary() {
   let problem = '';
   if (n < 3) problem = 'Ajoutez au moins 3 joueurs présents.';
   else if (nThemes === 0) problem = 'Choisissez au moins un thème.';
+  else if (S.duo && Math.min(maxSpecial(n), n - 2) < 2) problem = 'Le mode Duo demande au moins 4 joueurs présents.';
   else if (S.imp + S.white === 0) problem = 'Ajoutez au moins un imposteur ou un Mister White.';
   btn.disabled = !!problem;
   const parts = [plural(n, 'joueur', 'joueurs'), plural(S.imp, 'imposteur', 'imposteurs')];
   if (S.white) parts.push(S.white + ' Mister White');
   parts.push(plural(nThemes, 'thème', 'thèmes'));
+  if (S.blind) parts.push('aveugles');
+  if (S.duo) parts.push('duo');
+  if (S.clean) parts.push('sans intrus 1/' + S.clean);
   $('summary').textContent = problem || parts.join(' · ');
   $('summary').className = problem ? 'summary hint warn' : 'summary';
 }
 
-function changed() { clampRoles(); save(); renderPlayers(); renderRoles(); renderThemes(); renderSummary(); }
+/* "Manches sans intrus" frequency: 0 = never, otherwise 1 round out of N. */
+const CLEAN_STEPS = [0, 100, 50, 30, 20, 15, 10, 8, 6, 5, 4, 3, 2];
+function renderVariants() {
+  $('sw-blind').setAttribute('aria-checked', String(S.blind));
+  $('sw-duo').setAttribute('aria-checked', String(S.duo));
+  if (!CLEAN_STEPS.includes(S.clean)) S.clean = 0;
+  const k = CLEAN_STEPS.indexOf(S.clean);
+  $('clean-label').textContent = S.clean ? `1 manche sur ${S.clean}` : 'Jamais';
+  $('clean-minus').disabled = k === 0;
+  $('clean-plus').disabled = k === CLEAN_STEPS.length - 1;
+}
+function changed() { clampRoles(); save(); renderPlayers(); renderRoles(); renderVariants(); renderThemes(); renderSummary(); }
 
 $('add-form').addEventListener('submit', e => {
   e.preventDefault();
@@ -729,12 +823,16 @@ function startGame() {
   const players = present();
   const { theme, pair } = pickPair();
   const [civil, imp] = Math.random() < .5 ? pair : [pair[1], pair[0]];
+  // Secret draw: a round where everybody gets the same word.
+  const clean = S.clean > 0 && Math.random() < 1 / S.clean;
+  const nImp = clean ? 0 : S.imp, nWhite = clean ? 0 : S.white;
   const roles = shuffle([
-    ...Array(S.imp).fill('imp'), ...Array(S.white).fill('white'),
-    ...Array(players.length - S.imp - S.white).fill('civil')
+    ...Array(nImp).fill('imp'), ...Array(nWhite).fill('white'),
+    ...Array(players.length - nImp - nWhite).fill('civil')
   ]);
   const order = players.map((p, i) => ({ name: p.name, role: roles[i], word: roles[i] === 'civil' ? civil : roles[i] === 'imp' ? imp : null }));
-  G = { order, civil, imp, theme, idx: 0, round: 1, starter: null, selected: null, over: false, winner: null, single: null };
+  G = { order, civil, imp: clean ? null : imp, theme, idx: 0, round: 1, starter: null, selected: null, over: false, winner: null, single: null,
+        clean, cleanOn: S.clean > 0, blind: S.blind && !clean, duo: S.duo && !clean };
   pickStarter();
   save();
   keepAwake();
@@ -756,19 +854,31 @@ function showCard() {
   const i = G.single != null ? G.single : G.idx;
   const p = G.order[i];
   const isWhite = p.role === 'white';
+  const isImp = p.role === 'imp';
+  const blindImp = isImp && G.blind, duoImp = isImp && G.duo;
+  let variant = '', kicker = null, word = p.word, note = 'Votre mot secret. Donnez un indice sans jamais le dire ni le montrer.';
+  if (isWhite) {
+    variant = 'white'; kicker = 'Rôle secret'; word = 'Mister White';
+    note = 'Vous n\'avez aucun mot. Écoutez, bluffez, puis devinez le mot des civils.';
+  } else if (blindImp) {
+    variant = 'known'; kicker = duoImp ? 'Imposteur aveugle · Duo' : 'Imposteur aveugle · Thème'; word = G.theme;
+    note = duoImp ? 'Vous ne connaissez que le thème. Un autre imposteur fait équipe avec vous : repérez-le.'
+                  : 'Vous ne connaissez que le thème. Trouvez le mot des autres sans vous trahir.';
+  } else if (duoImp) {
+    variant = 'known'; kicker = 'Imposteur · Duo';
+    note = 'Votre partenaire de duo a le même mot. Repérez-le sans vous faire démasquer.';
+  }
   const pip = cls => { const d = el('div', { class: 'pip ' + cls, 'aria-hidden': 'true' }, el('b', { text: 'M' })); d.insertAdjacentHTML('beforeend', MASK_SVG); return d; };
   const emblem = el('div', { class: 'emblem', 'aria-hidden': 'true' }); emblem.innerHTML = MASK_SVG;
-  const card = el('div', { class: 'card' },
+  const card = el('div', { class: 'card ' + variant },
     pip('tl'), pip('br'),
     el('span', { class: 'ribbon', text: p.name }),
     el('div', { class: 'center' },
       emblem,
-      el('div', { class: 'word', text: isWhite ? 'Mister White' : p.word }),
+      kicker ? el('span', { class: 'kicker', text: kicker }) : null,
+      el('div', { class: 'word', text: word }),
       el('div', { class: 'rule', 'aria-hidden': 'true' }, el('i'), '◆', el('i'))),
-    /* Both notes have about the same length so the cards look alike from afar. */
-    el('p', { class: 'note', text: isWhite
-      ? 'Vous n\'avez aucun mot. Écoutez, bluffez, puis devinez le mot des civils.'
-      : 'Votre mot secret. Donnez un indice sans jamais le dire ni le montrer.' }));
+    el('p', { class: 'note', text: note }));
   card.classList.add('face', 'front');
   const back = el('div', { class: 'card face back', 'aria-hidden': 'true' }, el('div', { class: 'medal' }, el('span', { text: '?' })));
   $('card-slot').replaceChildren(el('div', { class: 'flip' }, el('div', { class: 'flip-inner' }, back, card)));
@@ -795,6 +905,7 @@ function pickStarter() {
    The others win when only one civilian is left. */
 function checkWinner() {
   const a = alive();
+  if (G.clean) return a.length <= 2 ? 'cleanLose' : null;   // no intruder: the game goes on until "nobody" is voted
   const civ = a.filter(p => p.role === 'civil').length;
   const spec = a.filter(p => p.role !== 'civil');
   if (spec.length === 0) return 'civil';
@@ -804,7 +915,7 @@ function checkWinner() {
 
 function endGame(winner) {
   G.over = true; G.winner = winner; showDone();
-  if (winner !== 'stopped') confetti(winner === 'civil' ? ['#e6efe9', '#e3ab3f', '#94b8ab'] : ['#f08a6c', '#e3ab3f', '#f4ecdc']);
+  if (winner !== 'stopped' && winner !== 'cleanLose') confetti(['civil', 'cleanWin'].includes(winner) ? ['#e6efe9', '#e3ab3f', '#94b8ab'] : ['#f08a6c', '#e3ab3f', '#f4ecdc']);
 }
 
 /* Short confetti burst drawn on a temporary canvas. */
@@ -853,6 +964,7 @@ function showDone() {
     const btn = $('elim-btn');
     btn.disabled = G.selected == null;
     btn.textContent = G.selected == null ? 'Choisissez un joueur' : `Éliminer ${G.order[G.selected].name}`;
+    $('nobody-btn').hidden = !G.cleanOn;
     $('forgot-list').replaceChildren(...G.order.map((p, i) => p.out ? null :
       el('button', { class: 'chip', type: 'button', text: p.name, onclick: () => { G.single = i; showPass(); } })).filter(Boolean));
   } else {
@@ -862,18 +974,22 @@ function showDone() {
       both: ['Les imposteurs et Mister White gagnent', 'Il ne reste qu\'un civil en jeu.'],
       whiteSurvive: ['Mister White gagne', 'Il ne reste qu\'un civil en jeu.'],
       whiteGuess: ['Mister White gagne', `Il a deviné le mot des civils en écrivant « ${G.whiteGuess} ».`],
-      stopped: ['Rôles révélés', 'La partie a été arrêtée avant la fin.']
+      stopped: ['Rôles révélés', G.clean ? 'La partie a été arrêtée. Il n\'y avait aucun intrus cette manche !' : 'La partie a été arrêtée avant la fin.'],
+      duo: ['Le duo gagne', `${G.duoGuesser} a reconnu son partenaire ${G.duoPartner}.`],
+      cleanWin: ['Tout le monde gagne', 'Il n\'y avait aucun intrus cette manche, et vous l\'avez deviné.'],
+      cleanLose: ['Personne ne gagne', `Il n'y avait aucun intrus : vous avez éliminé ${plural(G.order.filter(p => p.out).length, 'innocent', 'innocents')}.`]
     };
     const [t, sub] = titles[G.winner];
     $('winner').textContent = t;
     $('winner-sub').textContent = sub;
     $('res-civil').textContent = G.civil;
-    $('res-imp').textContent = G.imp;
+    $('res-imp').textContent = G.imp || 'Aucun';
+    $('res-imp-label').textContent = G.blind ? 'Imposteurs (aveugles)' : 'Imposteurs';
     $('res-theme').textContent = 'Thème : ' + G.theme;
     $('results').replaceChildren(...G.order.map((p, i) => el('li', { class: p.out ? 'out' : '', style: `animation-delay:${.5 + i * .07}s` },
       el('span', { class: 'who', text: p.name }),
       el('span', { class: 'pill ' + p.role, text: LABEL[p.role] }),
-      el('span', { class: 'what', text: (p.word || 'aucun mot') + (p.out ? ` · éliminé au tour ${p.out}` : ' · encore en jeu') }))));
+      el('span', { class: 'what', text: (p.role === 'imp' && G.blind ? 'thème seulement' : (p.word || 'aucun mot')) + (p.role === 'imp' && G.duo ? ' · duo' : '') + (p.out ? ` · éliminé au tour ${p.out}` : ' · encore en jeu') }))));
   }
   show('done');
 }
@@ -888,10 +1004,13 @@ function eliminate() {
   v.textContent = LABEL[p.role];
   v.className = 'verdict ' + p.role;
   const isWhite = p.role === 'white';
+  const partner = G.duo && p.role === 'imp' ? G.order.find(x => x !== p && x.role === 'imp' && !x.out) : null;
   $('white-guess').hidden = !isWhite;
   $('guess-input').value = '';
   $('guess-result').hidden = true;
-  $('elim-continue').hidden = isWhite;
+  $('duo-guess').hidden = !partner;
+  if (partner) { G.duoPick = null; renderDuoList(p); }
+  $('elim-continue').hidden = isWhite || !!partner;
   $('elim-continue').textContent = 'Continuer';
   $('elim-continue').onclick = afterElimination;
   show('elim');
@@ -938,6 +1057,38 @@ $('white-guess').addEventListener('submit', e => {
   btn.onclick = won ? () => endGame('whiteGuess') : afterElimination;
 });
 
+/* Duo: the eliminated impostor names who they think their partner is. */
+function renderDuoList(guesser) {
+  const candidates = G.order.filter(x => !x.out);
+  $('duo-list').replaceChildren(...candidates.map(x => el('button', { class: 'chip', type: 'button', text: x.name,
+    'aria-pressed': String(G.duoPick === x),
+    onclick: () => { G.duoPick = G.duoPick === x ? null : x; renderDuoList(guesser); } })));
+  const btn = $('duo-submit');
+  btn.disabled = !G.duoPick;
+  btn.textContent = G.duoPick ? `Mon partenaire est ${G.duoPick.name}` : 'Choisissez un joueur';
+  btn.onclick = () => {
+    const pick = G.duoPick, won = pick.role === 'imp';
+    $('duo-guess').hidden = true;
+    const res = $('guess-result');
+    res.textContent = won ? `Bien vu : ${pick.name} était votre partenaire !` : `Raté : ${pick.name} n'était pas votre partenaire.`;
+    res.className = 'verdict-msg ' + (won ? 'ok' : 'ko');
+    res.hidden = false;
+    G.duoGuesser = guesser.name; G.duoPartner = pick.name;
+    const cont = $('elim-continue');
+    cont.hidden = false;
+    cont.textContent = won ? 'Voir les résultats' : 'Continuer';
+    cont.onclick = won ? () => endGame('duo') : afterElimination;
+  };
+}
+
+/* Vote "nobody": wins a clean round, otherwise the round is lost. */
+function voteNobody() {
+  if (G.clean) { endGame('cleanWin'); return; }
+  G.selected = null;
+  show('nobody');
+}
+$('nobody-continue').onclick = () => { G.round++; pickStarter(); showDone(); };
+
 function afterElimination() {
   const w = checkWinner();
   if (w) { endGame(w); return; }
@@ -951,6 +1102,11 @@ $('reveal-btn').onclick = showCard;
 $('hide-btn').onclick = nextAfterCard;
 confirmTap($('abort-btn'), 'Toucher encore pour abandonner', () => { G = null; show('setup'); });
 $('elim-btn').onclick = eliminate;
+confirmTap($('nobody-btn'), 'Toucher encore : personne n\'est suspect', voteNobody);
+$('sw-blind').onclick = () => { S.blind = !S.blind; changed(); };
+$('sw-duo').onclick = () => { S.duo = !S.duo; changed(); };
+$('clean-minus').onclick = () => { S.clean = CLEAN_STEPS[Math.max(0, CLEAN_STEPS.indexOf(S.clean) - 1)]; changed(); };
+$('clean-plus').onclick = () => { S.clean = CLEAN_STEPS[Math.min(CLEAN_STEPS.length - 1, CLEAN_STEPS.indexOf(S.clean) + 1)]; changed(); };
 confirmTap($('show-roles-btn'), 'Toucher encore : tout le monde verra les rôles', () => endGame('stopped'));
 $('again-btn').onclick = startGame;
 $('back-btn').onclick = () => { G = null; changed(); show('setup'); };
