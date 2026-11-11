@@ -76,7 +76,7 @@
 | 58 | Ananas | Noix de coco |
 | 59 | Noisette | Amande |
 | 60 | Cacahuète | Pistache |
-| 61 | Kiwi | Avocat |
+| 61 | Kiwi | Litchi |
 
 ## Animaux — 51 paires
 
@@ -104,7 +104,7 @@
 | 20 | Kangourou | Koala |
 | 21 | Poule | Canard |
 | 22 | Girafe | Zèbre |
-| 23 | Éléphant | Rhinocéros |
+| 23 | Éléphant | Mammouth |
 | 24 | Phoque | Otarie |
 | 25 | Singe | Gorille |
 | 26 | Écureuil | Hamster |
@@ -132,7 +132,7 @@
 | 48 | Chauve-souris | Papillon de nuit |
 | 49 | Poisson rouge | Carpe |
 | 50 | Crabe | Homard |
-| 51 | Hippopotame | Bison |
+| 51 | Hippopotame | Rhinocéros |
 
 ## Maison & objets — 55 paires
 
@@ -177,7 +177,7 @@
 | 37 | Ampoule | Néon |
 | 38 | Radiateur | Cheminée |
 | 39 | Ventilateur | Climatiseur |
-| 40 | Poubelle | Seau |
+| 40 | Poubelle | Bac de recyclage |
 | 41 | Porte | Portail |
 | 42 | Escalier | Ascenseur |
 | 43 | Cave | Grenier |
@@ -203,8 +203,8 @@
 | 3 | Hôpital | Pharmacie |
 | 4 | École | Université |
 | 5 | Cinéma | Théâtre |
-| 6 | Avion | Hélicoptère |
-| 7 | Train | Métro |
+| 6 | Bar | Café |
+| 7 | Boîte de nuit | Salle de concert |
 | 8 | Paris | Londres |
 | 9 | Bibliothèque | Librairie |
 | 10 | Restaurant | Cantine |
@@ -229,7 +229,7 @@
 | 29 | Station-service | Garage |
 | 30 | Village | Ville |
 | 31 | Ferme | Ranch |
-| 32 | Phare | Moulin |
+| 32 | Moulin | Éolienne |
 | 33 | Grotte | Tunnel |
 | 34 | Cimetière | Crématorium |
 | 35 | Fête foraine | Parc d'attractions |
@@ -258,7 +258,7 @@
 | 10 | Dentiste | Chirurgien |
 | 11 | Journaliste | Écrivain |
 | 12 | Architecte | Maçon |
-| 13 | Vétérinaire | Fermier |
+| 13 | Vétérinaire | Soigneur animalier |
 | 14 | Acteur | Chanteur |
 | 15 | Facteur | Livreur |
 | 16 | Astronaute | Astronome |
@@ -323,7 +323,7 @@
 | 26 | Canoë | Kayak |
 | 27 | Aviron | Voile |
 | 28 | Parachute | Parapente |
-| 29 | Saut à l'élastique | Accrobranche |
+| 29 | Saut à l'élastique | Tyrolienne |
 | 30 | Marathon | Triathlon |
 | 31 | Haltérophilie | Musculation |
 | 32 | Lutte | Sumo |
@@ -368,7 +368,7 @@
 | 24 | Lavande | Thym |
 | 25 | Glacier | Iceberg |
 | 26 | Marécage | Étang |
-| 27 | Dune | Falaise |
+| 27 | Dune | Désert |
 | 28 | Lave | Magma |
 | 29 | Éclair | Tonnerre |
 | 30 | Rosée | Givre |
@@ -394,7 +394,7 @@
 | 1 | Jean | Jogging |
 | 2 | Chemise | T-shirt |
 | 3 | Baskets | Tongs |
-| 4 | Écharpe | Cravate |
+| 4 | Écharpe | Foulard |
 | 5 | Casquette | Bonnet |
 | 6 | Robe | Jupe |
 | 7 | Pull | Gilet |
@@ -416,7 +416,7 @@
 | 23 | Mocassins | Ballerines |
 | 24 | Bottes | Bottines |
 | 25 | Kimono | Sari |
-| 26 | Uniforme | Tablier |
+| 26 | Tablier | Blouse |
 | 27 | Combinaison | Salopette |
 | 28 | Soutien-gorge | Brassière |
 | 29 | Caleçon | Slip |
@@ -425,7 +425,7 @@
 | 32 | Parka | Ciré |
 | 33 | Cagoule | Passe-montagne |
 | 34 | Veste en jean | Perfecto |
-| 35 | Nœud papillon | Foulard |
+| 35 | Nœud papillon | Cravate |
 
 ## Transports & route — 34 paires
 
@@ -500,10 +500,10 @@
 | 28 | Sueur | Larmes |
 | 29 | Hoquet | Rot |
 | 30 | Squelette | Crâne |
-| 31 | Nombril | Grain de beauté |
+| 31 | Grain de beauté | Tache de rousseur |
 | 32 | Poignet | Cheville |
 | 33 | Cerveau | Neurone |
-| 34 | Sang | Lymphe |
+| 34 | Mollet | Cuisse |
 | 35 | Radio | Échographie |
 | 36 | Ordonnance | Médicament |
 | 37 | Sirop | Pastille |
@@ -539,7 +539,7 @@
 | 25 | Hamac | Transat |
 | 26 | Parasol | Tonnelle |
 | 27 | Ruche | Poulailler |
-| 28 | Ruban adhésif | Mastic |
+| 28 | Mastic | Silicone |
 | 29 | Boîte à outils | Établi |
 | 30 | Papier peint | Carrelage |
 
@@ -551,7 +551,7 @@
 
 | # | Mot A | Mot B |
 |---:|---|---|
-| 1 | Titanic | Avatar |
+| 1 | Titanic | Pearl Harbor |
 | 2 | Harry Potter | Le Seigneur des anneaux |
 | 3 | Star Wars | Star Trek |
 | 4 | Friends | How I Met Your Mother |
@@ -593,7 +593,7 @@
 | 40 | Coco | Encanto |
 | 41 | Barbie | Oppenheimer |
 | 42 | Pulp Fiction | Kill Bill |
-| 43 | Amélie Poulain | Les Choristes |
+| 43 | Les Choristes | Le Cercle des poètes disparus |
 | 44 | Ratatouille | Là-haut |
 | 45 | Bambi | Dumbo |
 
@@ -642,8 +642,8 @@
 | 39 | Elvis Presley | Johnny Cash |
 | 40 | Madonna | Britney Spears |
 | 41 | Eminem | 50 Cent |
-| 42 | Clip | Live |
-| 43 | Playlist | Album |
+| 42 | Single | Album |
+| 43 | Playlist | Compilation |
 | 44 | Harpe | Lyre |
 
 ## Personnages & héros — 43 paires
@@ -717,7 +717,7 @@
 | 17 | Pac-Man | Space Invaders |
 | 18 | Tamagotchi | Furby |
 | 19 | Clash of Clans | Clash Royale |
-| 20 | Mario Kart | Rocket League |
+| 20 | Mario Kart | Crash Team Racing |
 | 21 | Super Mario | Sonic |
 | 22 | Street Fighter | Tekken |
 | 23 | Overwatch | Valorant |
@@ -755,7 +755,7 @@
 | 7 | Einstein | Newton |
 | 8 | Léonard de Vinci | Picasso |
 | 9 | Obama | Kennedy |
-| 10 | Teddy Riner | Tony Parker |
+| 10 | Teddy Riner | David Douillet |
 | 11 | Taylor Swift | Lady Gaga |
 | 12 | Squeezie | Norman |
 | 13 | Mozart | Beethoven |
@@ -768,7 +768,7 @@
 | 20 | Federer | Nadal |
 | 21 | Michael Jordan | LeBron James |
 | 22 | Griezmann | Benzema |
-| 23 | Tom Cruise | Jean Dujardin |
+| 23 | Jean Dujardin | Gilles Lellouche |
 | 24 | Leonardo DiCaprio | Johnny Depp |
 | 25 | Angelina Jolie | Scarlett Johansson |
 | 26 | Louis de Funès | Bourvil |
@@ -780,7 +780,7 @@
 | 32 | Jules César | Alexandre le Grand |
 | 33 | Marie Curie | Louis Pasteur |
 | 34 | Thomas Pesquet | Neil Armstrong |
-| 35 | Freud | Darwin |
+| 35 | Freud | Jung |
 | 36 | Dalí | Van Gogh |
 | 37 | Monet | Renoir |
 | 38 | Michael Phelps | Léon Marchand |
@@ -799,22 +799,22 @@
 | 7 | Bob l'éponge | Les Razmoket |
 | 8 | Caillou | Peppa Pig |
 | 9 | Babar | Barbapapa |
-| 10 | Inspecteur Gadget | Bip Bip et Coyote |
+| 10 | Bip Bip et Coyote | Titi et Grosminet |
 | 11 | Il était une fois la vie | C'est pas sorcier |
 | 12 | Les Mystérieuses Cités d'or | Ulysse 31 |
 | 13 | Totoro | Le Voyage de Chihiro |
 | 14 | L'Attaque des Titans | Death Note |
-| 15 | Kirikou | Princesse Mononoké |
+| 15 | Kirikou | Azur et Asmar |
 | 16 | Titeuf | Le Petit Spirou |
 | 17 | Martin Matin | Kid Paddle |
 | 18 | Arthur | Franklin |
 | 19 | Kung Fu Panda | Madagascar |
 | 20 | Les Tortues Ninja | Power Rangers |
-| 21 | Pat' Patrouille | Petit Ours Brun |
+| 21 | Pat' Patrouille | Les Pyjamasques |
 | 22 | One Punch Man | My Hero Academia |
 | 23 | Olive et Tom | Inazuma Eleven |
 | 24 | Les Simpson | Futurama |
-| 25 | Miraculous | Zig et Sharko |
+| 25 | Miraculous | W.I.T.C.H. |
 | 26 | Yu-Gi-Oh! | Beyblade |
 | 27 | Sailor Moon | Card Captor Sakura |
 | 28 | Heidi | Candy |
@@ -921,7 +921,7 @@
 | 15 | Statue de la Liberté | Big Ben |
 | 16 | Pyramides | Sphinx |
 | 17 | Grande Muraille | Taj Mahal |
-| 18 | Sahara | Amazonie |
+| 18 | Sahara | Gobi |
 | 19 | Himalaya | Andes |
 | 20 | Euro | Dollar |
 | 21 | Pays-Bas | Danemark |
@@ -1001,7 +1001,7 @@
 | 23 | Excalibur | Graal |
 | 24 | Lampe magique | Tapis volant |
 | 25 | Boule de cristal | Cartes de tarot |
-| 26 | Malédiction | Prophétie |
+| 26 | Malédiction | Envoûtement |
 | 27 | Troll | Gobelin |
 | 28 | Hydre | Gorgone |
 | 29 | Grimoire | Parchemin |
@@ -1025,7 +1025,7 @@
 | 12 | Cro-Magnon | Néandertal |
 | 13 | Révolution | Guerre civile |
 | 14 | Guillotine | Potence |
-| 15 | Mousquetaire | Corsaire |
+| 15 | Mousquetaire | Grenadier |
 | 16 | Croisade | Conquête |
 | 17 | Pyramide | Temple |
 | 18 | Catapulte | Canon |
@@ -1034,7 +1034,7 @@
 | 21 | Cowboy | Shérif |
 | 22 | Ruée vers l'or | Far West |
 | 23 | Christophe Colomb | Magellan |
-| 24 | Hiéroglyphes | Alphabet |
+| 24 | Hiéroglyphes | Runes |
 | 25 | Colisée | Panthéon |
 | 26 | Guerre froide | Mur de Berlin |
 | 27 | Moine | Templier |
@@ -1089,7 +1089,7 @@
 | 4 | Lire dans les pensées | Hypnose |
 | 5 | Super force | Invincibilité |
 | 6 | Voir à travers les murs | Vision nocturne |
-| 7 | Respirer sous l'eau | Parler aux animaux |
+| 7 | Respirer sous l'eau | Nager comme un poisson |
 | 8 | Remonter le temps | Arrêter le temps |
 | 9 | Se transformer | Se dédoubler |
 | 10 | Contrôler le feu | Contrôler la glace |
@@ -1101,7 +1101,7 @@
 | 16 | Contrôler la météo | Contrôler la foudre |
 | 17 | Traverser les murs | Grimper aux murs |
 | 18 | Ne jamais dormir | Ne jamais avoir faim |
-| 19 | Parler toutes les langues | Tout savoir |
+| 19 | Parler toutes les langues | Parler aux animaux |
 | 20 | Chance infinie | Argent infini |
 | 21 | Super ouïe | Super odorat |
 | 22 | Rayon laser | Souffle glacé |
@@ -1131,12 +1131,12 @@
 | 19 | Popstars | Nouvelle Star |
 | 20 | Fort Boyard | Intervilles |
 | 21 | Club Dorothée | Les Minikeums |
-| 22 | Kinder Surprise | Carambar |
-| 23 | Chupa Chups | Malabar |
+| 22 | Kinder Surprise | Kinder Bueno |
+| 23 | Carambar | Malabar |
 | 24 | Modem 56k | Clé 3G |
 | 25 | Bescherelle | Dictionnaire |
 | 26 | Gameboy Color | Nintendo DS |
-| 27 | Tamagotchi | Bop It |
+| 27 | Tamagotchi | Furby |
 | 28 | Rollers en ligne | Heelys |
 
 ## Petits tracas — 28 paires
@@ -1169,7 +1169,7 @@
 | 24 | Orteil dans le meuble | Tête dans le placard |
 | 25 | Monter un meuble | Déménager |
 | 26 | Panne de chaudière | Fuite d'eau |
-| 27 | Gueule de bois | Insomnie |
+| 27 | Gueule de bois | Nuit blanche |
 | 28 | Mot de passe oublié | Compte bloqué |
 
 ## Bureau & travail — 30 paires
@@ -1228,8 +1228,8 @@
 | 15 | Vacances d'été | Vacances de Noël |
 | 16 | Colonie de vacances | Classe verte |
 | 17 | Sortie scolaire | Voyage scolaire |
-| 18 | Photo de classe | Remise des prix |
-| 19 | Délégué de classe | Chouchou |
+| 18 | Remise des prix | Fête de fin d'année |
+| 19 | Chouchou | Premier de la classe |
 | 20 | Compas | Rapporteur |
 | 21 | Goûter | Petit-déjeuner |
 | 22 | Tétine | Biberon |
@@ -1237,7 +1237,7 @@
 | 24 | Comptine | Berceuse |
 | 25 | Heure de colle | Exclusion |
 | 26 | Antisèche | Copier sur le voisin |
-| 27 | Prof de sport | CPE |
+| 27 | CPE | Surveillant |
 | 28 | Cour de récré | Préau |
 | 29 | Livre de maths | Livre d'histoire |
 | 30 | Conjugaison | Grammaire |
@@ -1274,7 +1274,7 @@
 | 26 | Patient | Persévérant |
 | 27 | Fou rire | Crise de larmes |
 | 28 | Rancune | Vengeance |
-| 29 | Maladroit | Tête en l'air |
+| 29 | Maladroit | Gaffeur |
 | 30 | Râleur | Grincheux |
 
 ## Famille & vie à deux — 25 paires
@@ -1292,7 +1292,7 @@
 | 9 | Repas de famille | Pique-nique |
 | 10 | Déménagement | Emménagement |
 | 11 | Divorce | Séparation |
-| 12 | Anniversaire de mariage | Fête des pères |
+| 12 | Anniversaire de mariage | Noces d'or |
 | 13 | Album photo | Arbre généalogique |
 | 14 | Héritage | Testament |
 | 15 | Baby-sitter | Nounou |
@@ -1304,5 +1304,5 @@
 | 21 | Chambre d'amis | Canapé-lit |
 | 22 | Fiançailles | Mariage |
 | 23 | Grossesse | Accouchement |
-| 24 | Fils unique | Aîné |
-| 25 | Réunion de famille | Mariage de cousin |
+| 24 | Aîné | Cadet |
+| 25 | Réunion de famille | Cousinade |
