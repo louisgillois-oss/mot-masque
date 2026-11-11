@@ -249,7 +249,7 @@ button { cursor: pointer; }
 
 /* The card arrives face down, then flips to show the word. */
 .flip { perspective: 1200px; width: min(100%, 340px); max-width: 100%; aspect-ratio: 5 / 7; margin: 0 auto; }
-.flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: flip .85s cubic-bezier(.35,1.25,.4,1) .25s both; }
+.flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: flip .85s cubic-bezier(.35,1.25,.4,1) 1.1s both; }
 .flip .face { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; margin: 0; animation: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .flip .back { transform: rotateY(180deg); justify-content: center; padding: 0; }
 /* Card back: lattice, two offset sunbursts, rings, corner fans, stepped bars and a double diamond with the mask */
