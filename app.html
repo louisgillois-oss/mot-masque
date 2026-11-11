@@ -252,11 +252,40 @@ button { cursor: pointer; }
 .flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: flip .85s cubic-bezier(.35,1.25,.4,1) .25s both; }
 .flip .face { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; margin: 0; animation: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .flip .back { transform: rotateY(180deg); justify-content: center; padding: 0; }
-.flip .back .burst { position: absolute; inset: 0; background: repeating-conic-gradient(rgba(227,171,63,.8) 0 2deg, transparent 2deg 12deg);
-  -webkit-mask: radial-gradient(circle, #000 0 56%, transparent 57%); mask: radial-gradient(circle, #000 0 56%, transparent 57%); }
-.flip .back .medal { width: 30cqw; aspect-ratio: 1; transform: rotate(45deg); background: var(--felt-deep); border: 1.5px solid var(--brass);
-  box-shadow: 0 0 0 2.5cqw var(--felt-deep), 0 0 0 3.2cqw rgba(227,171,63,.5); display: grid; place-items: center; position: relative; }
-.flip .back .medal span { transform: rotate(-45deg); font: 400 14cqw/1 "Limelight", Georgia, serif; color: var(--brass); }
+/* Card back: lattice, two offset sunbursts, rings, corner fans, stepped bars and a double diamond with the mask */
+.flip .back .lattice { position: absolute; inset: 8cqw;
+  background: repeating-linear-gradient(45deg, rgba(227,171,63,.14) 0 1px, transparent 1px 5cqw),
+              repeating-linear-gradient(-45deg, rgba(227,171,63,.14) 0 1px, transparent 1px 5cqw);
+  -webkit-mask: radial-gradient(circle at 50% 50%, transparent 0 40cqw, #000 41cqw); mask: radial-gradient(circle at 50% 50%, transparent 0 40cqw, #000 41cqw); }
+.flip .back .burst { position: absolute; left: 50%; top: 50%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; }
+.flip .back .burst.b1 { width: 84cqw; background: repeating-conic-gradient(rgba(227,171,63,.9) 0 1.3deg, transparent 1.3deg 15deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 0 50%, #000 51% 99%, transparent 100%); mask: radial-gradient(closest-side, transparent 0 50%, #000 51% 99%, transparent 100%); }
+.flip .back .burst.b2 { width: 66cqw; background: repeating-conic-gradient(from 7.5deg, rgba(227,171,63,.55) 0 1deg, transparent 1deg 15deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 0 62%, #000 63% 99%, transparent 100%); mask: radial-gradient(closest-side, transparent 0 62%, #000 63% 99%, transparent 100%); }
+.flip .back .ring { position: absolute; left: 50%; top: 50%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; }
+.flip .back .ring.r1 { width: 46cqw; border: 1px solid rgba(227,171,63,.7); }
+.flip .back .ring.r2 { width: 52cqw; border: 1px dashed rgba(227,171,63,.45); }
+.flip .back .ring.r3 { width: 88cqw; border: 1px solid rgba(227,171,63,.35); }
+.flip .back .cfan { position: absolute; width: 24cqw; height: 24cqw;
+  background: repeating-conic-gradient(rgba(227,171,63,.85) 0 1.5deg, transparent 1.5deg 9deg); }
+.flip .back .cfan.tl { top: 7.5cqw; left: 7.5cqw; -webkit-mask: radial-gradient(circle at 0 0, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); mask: radial-gradient(circle at 0 0, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); background-position: 0 0; }
+.flip .back .cfan.tr { top: 7.5cqw; right: 7.5cqw; -webkit-mask: radial-gradient(circle at 100% 0, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); mask: radial-gradient(circle at 100% 0, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); }
+.flip .back .cfan.bl { bottom: 7.5cqw; left: 7.5cqw; -webkit-mask: radial-gradient(circle at 0 100%, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); mask: radial-gradient(circle at 0 100%, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); }
+.flip .back .cfan.br { bottom: 7.5cqw; right: 7.5cqw; -webkit-mask: radial-gradient(circle at 100% 100%, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); mask: radial-gradient(circle at 100% 100%, transparent 0 6cqw, #000 6.4cqw 21cqw, transparent 21.4cqw); }
+.flip .back .cfan.tl { background: repeating-conic-gradient(from 0deg at 0 0, rgba(227,171,63,.85) 0 1.5deg, transparent 1.5deg 9deg); }
+.flip .back .cfan.tr { background: repeating-conic-gradient(from 0deg at 100% 0, rgba(227,171,63,.85) 0 1.5deg, transparent 1.5deg 9deg); }
+.flip .back .cfan.bl { background: repeating-conic-gradient(from 0deg at 0 100%, rgba(227,171,63,.85) 0 1.5deg, transparent 1.5deg 9deg); }
+.flip .back .cfan.br { background: repeating-conic-gradient(from 0deg at 100% 100%, rgba(227,171,63,.85) 0 1.5deg, transparent 1.5deg 9deg); }
+.flip .back .steps { position: absolute; left: 50%; width: 36cqw; height: 5cqw; transform: translateX(-50%);
+  background: linear-gradient(var(--brass), var(--brass)) center 0 / 34cqw 1px no-repeat,
+              linear-gradient(var(--brass), var(--brass)) center 2cqw / 24cqw 1px no-repeat,
+              linear-gradient(var(--brass), var(--brass)) center 4cqw / 12cqw 1px no-repeat; }
+.flip .back .steps.top { top: 10cqw; }
+.flip .back .steps.bot { bottom: 10cqw; transform: translateX(-50%) rotate(180deg); }
+.flip .back .medal { width: 28cqw; aspect-ratio: 1; transform: rotate(45deg); background: var(--felt-deep); border: 1.5px solid var(--brass);
+  box-shadow: 0 0 0 2.4cqw var(--felt-deep), 0 0 0 3cqw rgba(227,171,63,.6); display: grid; place-items: center; position: relative; }
+.flip .back .medal-in { position: absolute; inset: 2.6cqw; border: 1px solid rgba(227,171,63,.55); }
+.flip .back .medal svg { width: 15cqw; transform: rotate(-45deg); position: relative; }
 @keyframes flip { from { transform: rotateY(-180deg) scale(.92); } to { transform: none; } }
 
 /* Elimination: a short pause, then the role is stamped. */
@@ -325,6 +354,64 @@ button { cursor: pointer; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; }
 .row > .btn { flex: 1; }
 .error { color: var(--alert); margin: 0; font-size: .9rem; }
+
+/* ================= Art déco interface ================= */
+:root { --deco: "Limelight", Georgia, serif; --gold-soft: rgba(227,171,63,.38); }
+/* faint gold lattice over the felt */
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .05;
+  background: repeating-linear-gradient(45deg, var(--brass) 0 1px, transparent 1px 26px), repeating-linear-gradient(-45deg, var(--brass) 0 1px, transparent 1px 26px); }
+.view { position: relative; z-index: 1; }
+
+/* Header: centred title under a gold fan */
+.brand { flex-direction: column; align-items: center; justify-content: flex-start; gap: 8px; text-align: center; position: relative; padding-top: 68px; }
+.brand::before { content: ""; position: absolute; top: 0; left: 50%; width: 132px; height: 62px; transform: translateX(-50%);
+  background: repeating-conic-gradient(from 0deg at 50% 100%, var(--brass) 0 1.4deg, transparent 1.4deg 9deg);
+  -webkit-mask: radial-gradient(circle at 50% 100%, transparent 0 24px, #000 25px 60px, transparent 61px); mask: radial-gradient(circle at 50% 100%, transparent 0 24px, #000 25px 60px, transparent 61px); }
+.brand h1 { font: 400 clamp(2.2rem, 10vw, 2.8rem)/1 var(--deco); letter-spacing: .03em; }
+.brand small { display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: .3em; font-size: .68rem; color: var(--brass); }
+.brand small::before, .brand small::after { content: ""; width: 34px; height: 1px; background: var(--brass); }
+
+/* Section titles: diamond + gold rule */
+.panel h2 { display: flex; align-items: center; gap: 10px; color: var(--brass); }
+.panel h2::before { content: ""; width: 7px; height: 7px; border: 1px solid var(--brass); transform: rotate(45deg); flex: none; }
+.panel h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-soft), transparent); }
+.panel-head h2 { flex: 1; }
+.group-head h3 { font: 400 1.05rem var(--deco); letter-spacing: .03em; }
+.v-text b { font: 400 1.02rem var(--deco); letter-spacing: .02em; }
+
+/* Stage screens */
+.stage .eyebrow { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--brass); }
+.stage .eyebrow::before, .stage .eyebrow::after { content: ""; width: 34px; height: 1px; background: var(--brass); }
+.stage .big, #winner { font-family: var(--deco); font-weight: 400; letter-spacing: .02em; }
+.verdict { font-family: var(--deco); font-weight: 400; border-radius: 3px; letter-spacing: .03em;
+  box-shadow: 0 0 0 4px var(--felt-deep), 0 0 0 5px var(--brass); }
+.verdict-msg { font-family: var(--deco); font-weight: 400; }
+
+/* Framed blocks: double gold rule with a small diamond on top */
+.starter, .role, .wordpair > div { position: relative; border: 1px solid var(--gold-soft); border-radius: 3px;
+  outline: 1px solid rgba(227,171,63,.18); outline-offset: -6px; background: rgba(0,0,0,.16); }
+.starter::before, .role::before { content: ""; position: absolute; top: -5px; left: 50%; width: 8px; height: 8px; transform: translateX(-50%) rotate(45deg);
+  background: var(--felt-deep); border: 1px solid var(--brass); }
+.starter b { font-family: var(--deco); font-weight: 400; letter-spacing: .03em; }
+.role .num { font-family: var(--deco); font-weight: 400; }
+.wordpair b { font-family: var(--deco); font-weight: 400; }
+
+/* Controls */
+.btn { border-radius: 3px; text-transform: uppercase; letter-spacing: .1em; font-size: .86rem; border: 1px solid var(--gold-soft); }
+.btn.primary { border-color: var(--brass); box-shadow: inset 0 0 0 3px var(--brass), inset 0 0 0 4px rgba(42,29,5,.45); }
+.btn.danger { border-color: var(--alert); }
+.chip { border-radius: 3px; border-color: var(--gold-soft); }
+.chip[aria-pressed="true"] { background: var(--brass); color: var(--brass-ink); border-color: var(--brass); }
+.chip[aria-pressed="true"] .n { color: rgba(42,29,5,.65); }
+.custom-item .edit { border-radius: 0 3px 3px 0; border-color: var(--gold-soft); }
+.stepper button, .freq button, .icon-btn { border-radius: 3px; }
+.add-row input, .field input, .field textarea { border-radius: 3px; border-color: var(--gold-soft); }
+.pill { border-radius: 3px; }
+.players .seat { font-family: var(--deco); }
+
+/* Progress: diamonds */
+.progress i { border-radius: 1px; width: 8px; height: 8px; transform: rotate(45deg); }
+@keyframes pulse { 50% { transform: rotate(45deg) scale(1.5); } }
 </style>
 
 <!-- ================= SETUP ================= -->
@@ -884,7 +971,13 @@ function showCard() {
       el('div', { class: 'shape' + (duoImp ? ' bare' : '') }, el('div', { class: 'word' + size, text: word }))),
     el('p', { class: 'note', text: note }));
   const back = el('div', { class: 'card face back', 'aria-hidden': 'true' },
-    el('div', { class: 'burst' }), el('div', { class: 'frame' }), el('div', { class: 'medal' }, el('span', { text: '?' })));
+    el('div', { class: 'lattice' }), el('div', { class: 'ring r3' }),
+    el('div', { class: 'burst b1' }), el('div', { class: 'burst b2' }),
+    el('div', { class: 'ring r2' }), el('div', { class: 'ring r1' }),
+    ...['tl', 'tr', 'bl', 'br'].map(c => el('div', { class: 'cfan ' + c })),
+    el('div', { class: 'steps top' }), el('div', { class: 'steps bot' }),
+    el('div', { class: 'frame' }), el('div', { class: 'medal' }, el('div', { class: 'medal-in' })));
+  back.querySelector('.medal').insertAdjacentHTML('beforeend', MASK_SVG);
   $('card-slot').replaceChildren(el('div', { class: 'flip' }, el('div', { class: 'flip-inner' }, back, card)));
   show('reveal');
 }
