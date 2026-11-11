@@ -383,6 +383,7 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 .stage .eyebrow { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--brass); }
 .stage .eyebrow::before, .stage .eyebrow::after { content: ""; width: 34px; height: 1px; background: var(--brass); }
 .stage .big, #winner { font-family: var(--deco); font-weight: 400; letter-spacing: .02em; }
+#winner { font-size: clamp(1.9rem, 9vw, 2.8rem); }
 .verdict { font-family: var(--deco); font-weight: 400; border-radius: 3px; letter-spacing: .03em;
   box-shadow: 0 0 0 4px var(--felt-deep), 0 0 0 5px var(--brass); }
 .verdict-msg { font-family: var(--deco); font-weight: 400; }
@@ -408,6 +409,33 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 .add-row input, .field input, .field textarea { border-radius: 3px; border-color: var(--gold-soft); }
 .pill { border-radius: 3px; }
 .players .seat { font-family: var(--deco); }
+
+/* Scores */
+:root { --up: #8fd19e; }
+.ranking { list-style: none; margin: 0; padding: 0; text-align: left; border-top: 1px solid var(--felt-line); width: 100%; }
+.ranking li { display: grid; grid-template-columns: 2em minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 9px 4px;
+  border-bottom: 1px solid var(--felt-line); animation: rise .4s ease-out both; }
+.ranking .rk { font-family: var(--deco); color: var(--brass); text-align: center; }
+.ranking .nm { font-weight: 700; overflow-wrap: anywhere; }
+.ranking .mv { font-size: .78rem; margin-left: 6px; color: var(--muted); }
+.ranking .mv.up { color: var(--up); }
+.ranking .mv.down { color: var(--alert); }
+.ranking .dl { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--brass); text-align: right; min-width: 2.6em; }
+.ranking .dl.zero { color: var(--muted); opacity: .55; }
+.ranking .tt { font: 400 1.15rem var(--deco); text-align: right; min-width: 2.2em; font-variant-numeric: tabular-nums; }
+.ranking li.top .nm { color: var(--brass); }
+.podium { display: flex; align-items: flex-end; justify-content: center; gap: 10px; width: 100%; }
+.podium .step { flex: 1; max-width: 120px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.podium .who { font-weight: 700; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.podium .pts { color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.podium .block { width: 100%; display: grid; place-items: center; font: 400 2rem var(--deco); color: var(--brass);
+  border: 1px solid var(--brass); outline: 1px solid rgba(227,171,63,.25); outline-offset: -6px; border-radius: 3px 3px 0 0;
+  background: rgba(227,171,63,.1); transform-origin: bottom; animation: grow .7s cubic-bezier(.2,.8,.2,1) both; }
+.podium .s1 .block { height: 130px; background: rgba(227,171,63,.24); animation-delay: .5s; }
+.podium .s2 .block { height: 95px; animation-delay: .3s; }
+.podium .s3 .block { height: 70px; animation-delay: .15s; }
+.podium .s1 .who { font: 400 1.25rem var(--deco); color: var(--brass); }
+@keyframes grow { from { transform: scaleY(0); } to { transform: none; } }
 
 /* Progress: diamonds */
 .progress i { border-radius: 1px; width: 8px; height: 8px; transform: rotate(45deg); }
@@ -453,6 +481,10 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   <section class="panel" aria-labelledby="h-variants">
     <h2 id="h-variants">Variantes</h2>
     <div class="variants">
+      <div class="variant">
+        <div class="v-text"><b>Compter les points</b><span>Les points s'additionnent de manche en manche jusqu'à « Terminer la partie ». Civil +2, imposteur +6, Mister White +10 s'il survit ou +8 s'il devine le mot, duo reconnu +10, manche sans intrus devinée +3.</span></div>
+        <button type="button" class="switch" id="sw-score" role="switch" aria-checked="true" aria-label="Compter les points"></button>
+      </div>
       <div class="variant">
         <div class="v-text"><b>Imposteurs aveugles</b><span>Les imposteurs savent qu'ils le sont, mais ne voient que le thème de la manche.</span></div>
         <button type="button" class="switch" id="sw-blind" role="switch" aria-checked="false" aria-label="Imposteurs aveugles"></button>
@@ -552,9 +584,13 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   </div>
 
   <div id="over-wrap" class="panel" hidden>
-    <p class="eyebrow">Partie terminée</p>
+    <p class="eyebrow">Manche terminée</p>
     <p class="big" id="winner"></p>
     <p class="sub" id="winner-sub"></p>
+    <div id="score-wrap" class="panel" hidden>
+      <h2 id="score-title">Classement</h2>
+      <ol class="ranking" id="ranking"></ol>
+    </div>
     <div class="wordpair">
       <div><small>Civils</small><b id="res-civil"></b></div>
       <div><small id="res-imp-label">Imposteurs</small><b id="res-imp"></b></div>
@@ -565,6 +601,7 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 
   <div class="actions">
     <button class="btn primary wide" id="again-btn" type="button">Nouvelle manche</button>
+    <button class="btn ghost wide" id="finish-btn" type="button" hidden>Terminer la partie</button>
     <button class="link" id="show-roles-btn" type="button">Arrêter la partie et révéler tous les rôles</button>
     <button class="link" id="back-btn" type="button">Modifier les joueurs ou les thèmes</button>
   </div>
@@ -592,6 +629,19 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   <p class="verdict-msg" id="guess-result" hidden></p>
   <div class="actions">
     <button class="btn primary wide" id="elim-continue" type="button">Continuer</button>
+  </div>
+</main>
+
+<!-- ================= END OF THE PARTY: PODIUM ================= -->
+<main translate="no" id="v-podium" class="view stage notranslate" hidden>
+  <p class="eyebrow">Fin de la partie</p>
+  <p class="big">Podium</p>
+  <p class="sub" id="podium-sub"></p>
+  <div class="podium" id="podium"></div>
+  <ol class="ranking" id="final-ranking"></ol>
+  <div class="actions">
+    <button class="btn primary wide" id="newparty-btn" type="button">Nouvelle partie</button>
+    <button class="link" id="podium-back" type="button">Modifier les joueurs ou les thèmes</button>
   </div>
 </main>
 
@@ -661,6 +711,7 @@ const DEFAULTS = {
   ],
   imp: 1, white: 0,
   blind: false, duo: false, clean: 0,
+  score: true, scores: {}, rounds: 0, scoreKey: '',
   themes: ['nourriture', 'animaux', 'maison', 'lieux'],
   custom: [],
   used: []
@@ -824,6 +875,7 @@ function renderSummary() {
 /* "Manches sans intrus" frequency: 0 = never, otherwise 1 round out of N. */
 const CLEAN_STEPS = [0, 100, 50, 30, 20, 15, 10, 8, 6, 5, 4, 3, 2];
 function renderVariants() {
+  $('sw-score').setAttribute('aria-checked', String(S.score));
   $('sw-blind').setAttribute('aria-checked', String(S.blind));
   $('sw-duo').setAttribute('aria-checked', String(S.duo));
   if (!CLEAN_STEPS.includes(S.clean)) S.clean = 0;
@@ -911,6 +963,8 @@ function pickPair() {
 
 function startGame() {
   const players = present();
+  const key = players.map(p => p.name).sort().join('|');
+  if (key !== S.scoreKey) { S.scores = {}; S.rounds = 0; S.scoreKey = key; }
   const { theme, pair } = pickPair();
   const [civil, imp] = Math.random() < .5 ? pair : [pair[1], pair[0]];
   // Secret draw: a round where everybody gets the same word.
@@ -1017,8 +1071,52 @@ function intruderTitle() {
   return imp ? 'Les imposteurs gagnent' : 'Mister White gagne';
 }
 
+/* Points for this round. Eliminated players still score when their team wins. */
+const POINTS = { civil: 2, imp: 6, whiteSurvive: 10, whiteGuess: 8, duo: 10, clean: 3 };
+function roundPoints(winner) {
+  const pts = Object.fromEntries(G.order.map(p => [p.name, 0]));
+  const give = (pred, n) => G.order.filter(pred).forEach(p => { pts[p.name] += n; });
+  if (winner === 'civil') give(p => p.role === 'civil', POINTS.civil);
+  else if (['imp', 'both', 'whiteSurvive', 'nobodyWrong'].includes(winner)) {
+    give(p => p.role === 'imp', POINTS.imp);
+    give(p => p.role === 'white' && !p.out, POINTS.whiteSurvive);
+  }
+  else if (winner === 'whiteGuess') give(p => p === G.lastOut, POINTS.whiteGuess);
+  else if (winner === 'duo') give(p => p.role === 'imp', POINTS.duo);
+  else if (winner === 'cleanWin') give(() => true, POINTS.clean);
+  return pts;   // 'stopped' and 'cleanLose' give nothing
+}
+function standings(names) {
+  const list = names.map(name => ({ name, total: S.scores[name] || 0 })).sort((a, b) => b.total - a.total);
+  list.forEach((e, i) => { e.rank = i > 0 && e.total === list[i - 1].total ? list[i - 1].rank : i + 1; });
+  return list;
+}
+function scoreRound(winner) {
+  const names = G.order.map(p => p.name);
+  const before = Object.fromEntries(standings(names).map(e => [e.name, e.rank]));
+  const pts = roundPoints(winner);
+  for (const n of names) S.scores[n] = (S.scores[n] || 0) + pts[n];
+  if (winner !== 'stopped') S.rounds++;
+  G.deltas = pts; G.prevRanks = before;
+  save();
+}
+function renderRanking(ol, list, deltas, prev) {
+  ol.replaceChildren(...list.map((e, i) => {
+    const d = deltas ? deltas[e.name] || 0 : null;
+    const moved = prev ? prev[e.name] - e.rank : 0;
+    const mv = moved > 0 ? el('span', { class: 'mv up', text: '▲' + moved }) : moved < 0 ? el('span', { class: 'mv down', text: '▼' + (-moved) }) : null;
+    return el('li', { class: e.rank === 1 ? 'top' : '', style: `animation-delay:${.4 + i * .06}s` },
+      el('span', { class: 'rk', text: String(e.rank) }),
+      el('span', { class: 'nm' }, e.name, mv),
+      d == null ? el('span') : el('span', { class: 'dl' + (d ? '' : ' zero'), text: d ? '+' + d : '0' }),
+      el('span', { class: 'tt', text: String(e.total) }));
+  }));
+}
+
 function endGame(winner) {
-  G.over = true; G.winner = winner; showDone();
+  G.over = true; G.winner = winner;
+  if (S.score && !G.scored) { G.scored = true; scoreRound(winner); }
+  showDone();
   if (winner !== 'stopped' && winner !== 'cleanLose') confetti(['civil', 'cleanWin'].includes(winner) ? ['#e6efe9', '#e3ab3f', '#94b8ab'] : ['#f08a6c', '#e3ab3f', '#f4ecdc']);
 }
 
@@ -1054,6 +1152,12 @@ function showDone() {
   $('again-btn').hidden = !G.over;
   $('back-btn').hidden = !G.over;
   $('show-roles-btn').hidden = G.over;
+  $('finish-btn').hidden = !G.over || !S.score;
+  $('score-wrap').hidden = !(G.over && S.score && G.deltas);
+  if (G.over && S.score && G.deltas) {
+    $('score-title').textContent = `Classement · ${plural(S.rounds, 'manche', 'manches')}`;
+    renderRanking($('ranking'), standings(G.order.map(p => p.name)), G.deltas, G.prevRanks);
+  }
 
   if (!G.over) {
     $('round-label').textContent = `Tour ${G.round} · ${plural(alive().length, 'joueur en jeu', 'joueurs en jeu')}`;
@@ -1207,6 +1311,25 @@ confirmTap($('abort-btn'), 'Toucher encore pour abandonner', () => { G = null; s
 $('elim-btn').onclick = eliminate;
 confirmTap($('nobody-btn'), 'Toucher encore : personne n\'est suspect', voteNobody);
 $('sw-blind').onclick = () => { S.blind = !S.blind; changed(); };
+$('sw-score').onclick = () => { S.score = !S.score; changed(); };
+/* End of the party: podium, then every score goes back to zero. */
+function showPodium() {
+  const list = standings(G.order.map(p => p.name));
+  const rounds = S.rounds;
+  const steps = [[list[1], 's2'], [list[0], 's1'], [list[2], 's3']].filter(([e]) => e);
+  $('podium').replaceChildren(...steps.map(([e, cls]) => el('div', { class: 'step ' + cls },
+    el('span', { class: 'who', text: e.name }), el('span', { class: 'pts', text: plural(e.total, 'point', 'points') }),
+    el('div', { class: 'block', text: String(e.rank) }))));
+  $('podium-sub').textContent = `${plural(rounds, 'manche jouée', 'manches jouées')}. Les scores repartent de zéro pour la prochaine partie.`;
+  renderRanking($('final-ranking'), list, null, null);
+  S.scores = {}; S.rounds = 0; save();
+  G = null;
+  show('podium');
+  confetti(['#e3ab3f', '#f4ecdc', '#94b8ab']);
+}
+confirmTap($('finish-btn'), 'Toucher encore pour voir le podium', showPodium);
+$('newparty-btn').onclick = startGame;
+$('podium-back').onclick = () => { changed(); show('setup'); };
 $('sw-duo').onclick = () => { S.duo = !S.duo; changed(); };
 $('clean-minus').onclick = () => { S.clean = CLEAN_STEPS[Math.max(0, CLEAN_STEPS.indexOf(S.clean) - 1)]; changed(); };
 $('clean-plus').onclick = () => { S.clean = CLEAN_STEPS[Math.min(CLEAN_STEPS.length - 1, CLEAN_STEPS.indexOf(S.clean) + 1)]; changed(); };
