@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3a32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mot Masqué">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body>
+<title>Mot Masqué</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;700&display=swap">
+<style>
+/* Layout: one column "table de jeu" — a felt surface where secret words appear on cream playing cards. Single deliberate dark look. */
+:root {
+  --felt: #0f3a32;
+  --felt-deep: #0a2a24;
+  --felt-line: #1f5247;
+  --chalk: #e6efe9;
+  --muted: #94b8ab;
+  --card: #f4ecdc;
+  --ink: #1c2320;
+  --brass: #e3ab3f;
+  --brass-ink: #2a1d05;
+  --alert: #f08a6c;
+  --display: "Bricolage Grotesque", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--felt-deep);
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(120% 80% at 50% 0%, var(--felt) 0%, var(--felt-deep) 100%) fixed, var(--felt-deep);
+  color: var(--chalk);
+  font: 500 16px/1.5 var(--body);
+  -webkit-tap-highlight-color: transparent;
+}
+[hidden] { display: none !important; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+
+.view {
+  max-width: 560px; margin: 0 auto; min-height: 100%;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 0;
+  display: flex; flex-direction: column; gap: 22px;
+}
+
+/* Header */
+.brand { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.brand h1 { font: 800 2rem/1 var(--display); margin: 0; letter-spacing: -0.02em; }
+.brand h1 span { color: var(--brass); }
+.brand small { color: var(--muted); font-size: .8rem; }
+
+/* Sections */
+.panel { display: flex; flex-direction: column; gap: 12px; }
+.panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.panel h2 { margin: 0; font: 700 .78rem/1 var(--body); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.panel-head .count { font: 600 .9rem var(--body); color: var(--chalk); font-variant-numeric: tabular-nums; }
+
+/* Players */
+.players { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-top: 1px solid var(--felt-line); }
+.players li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--felt-line); }
+.players .seat { width: 1.6rem; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; font-size: .85rem; }
+.players .name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
+.players li.off .name { color: var(--muted); text-decoration: line-through; font-weight: 500; }
+.toggle {
+  width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--muted); background: transparent; flex: none;
+  display: grid; place-items: center; padding: 0;
+}
+.toggle[aria-pressed="true"] { background: var(--brass); border-color: var(--brass); }
+.toggle[aria-pressed="true"]::after { content: ""; width: 10px; height: 6px; border: 3px solid var(--brass-ink); border-top: 0; border-right: 0; transform: translateY(-2px) rotate(-45deg); }
+.icon-btn { width: 36px; height: 36px; border: 0; background: transparent; color: var(--muted); border-radius: 8px; font-size: 1.1rem; flex: none; }
+.icon-btn:active { background: var(--felt-line); }
+.icon-btn:disabled { opacity: .25; }
+.add-row { display: flex; gap: 8px; }
+.add-row input, .field input, .field textarea {
+  flex: 1; min-width: 0; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--felt-line);
+  background: rgba(0,0,0,.18); color: var(--chalk);
+}
+.add-row input::placeholder, .field ::placeholder { color: var(--muted); opacity: .8; }
+
+/* Buttons */
+.btn {
+  border: 0; border-radius: 14px; padding: 14px 18px; font-weight: 700; background: var(--felt-line); color: var(--chalk);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px;
+}
+.btn.primary { background: var(--brass); color: var(--brass-ink); }
+.btn.ghost { background: transparent; border: 1.5px solid var(--felt-line); }
+.btn.danger { background: transparent; border: 1.5px solid var(--alert); color: var(--alert); }
+.btn.wide { width: 100%; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.link { background: none; border: 0; color: var(--muted); text-decoration: underline; padding: 8px; font-size: .9rem; }
+
+/* Role steppers */
+.roles { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+.role { border: 1.5px solid var(--felt-line); border-radius: 16px; padding: 12px 8px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.role .label { font-size: .78rem; color: var(--muted); font-weight: 700; line-height: 1.2; min-height: 2.4em; display: flex; align-items: center; }
+.role .num { font: 800 2.2rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.role.fixed .num { color: var(--muted); }
+.stepper { display: flex; gap: 6px; }
+.stepper button { width: 38px; height: 34px; border-radius: 10px; border: 0; background: var(--felt-line); font-size: 1.2rem; font-weight: 700; }
+.stepper button:disabled { opacity: .3; }
+.hint { color: var(--muted); font-size: .85rem; margin: 0; }
+.hint.warn { color: var(--alert); }
+
+/* Themes */
+.group { display: flex; flex-direction: column; gap: 8px; }
+.group-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.group-head h3 { margin: 0; font: 600 1.05rem var(--display); }
+.group-head h3 .tag { font: 700 .66rem var(--body); letter-spacing: .08em; color: var(--alert); border: 1.5px solid var(--alert); border-radius: 6px; padding: 1px 5px; margin-left: 6px; vertical-align: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1.5px solid var(--felt-line); background: transparent; color: var(--chalk); border-radius: 999px;
+  padding: 8px 14px; font-size: .92rem; font-weight: 600; display: inline-flex; gap: 6px; align-items: center;
+}
+.chip .n { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--chalk); color: var(--ink); border-color: var(--chalk); }
+.chip[aria-pressed="true"] .n { color: #56645e; }
+.chip.add { border-style: dashed; color: var(--brass); border-color: var(--brass); }
+.custom-item { display: inline-flex; }
+.custom-item .chip { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.custom-item .edit { border: 1.5px solid var(--felt-line); border-left: 0; background: transparent; color: var(--muted); border-radius: 0 999px 999px 0; padding: 0 12px; font-size: .85rem; }
+
+/* Sticky action bar */
+.actionbar {
+  position: sticky; bottom: 0; margin-top: auto;
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(to top, var(--felt-deep) 70%, rgba(10,42,36,0));
+  display: flex; flex-direction: column; gap: 8px;
+}
+.summary { text-align: center; font-size: .85rem; color: var(--muted); margin: 0; }
+
+/* Full-screen stage views */
+.stage { justify-content: center; text-align: center; padding-block: 24px; }
+.stage .eyebrow { margin: 0; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; }
+.stage .big { margin: 0; font: 800 clamp(2.4rem, 12vw, 3.6rem)/1.05 var(--display); text-wrap: balance; overflow-wrap: anywhere; }
+.stage .sub { margin: 0; color: var(--muted); }
+.stage .actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.progress { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
+.progress i { width: 9px; height: 9px; border-radius: 50%; background: var(--felt-line); }
+.progress i.done { background: var(--brass); }
+.progress i.now { background: var(--chalk); }
+
+/* The secret card */
+.card {
+  background: var(--card); color: var(--ink); border-radius: 22px; padding: 28px 22px; margin: 0 auto;
+  width: min(100%, 340px); aspect-ratio: 5 / 7; max-width: 100%;
+  display: flex; flex-direction: column; justify-content: space-between; text-align: left;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--card), inset 0 0 0 7.5px rgba(28,35,32,.18);
+  animation: deal .35s ease-out;
+}
+.card .corner { font: 700 .75rem var(--body); letter-spacing: .14em; text-transform: uppercase; color: #6b6253; }
+.card .corner.end { text-align: right; }
+.card .word { font: 800 clamp(2rem, 10vw, 2.9rem)/1.05 var(--display); text-align: center; overflow-wrap: anywhere; text-wrap: balance; }
+.card .note { font-size: .88rem; text-align: center; color: #4c463c; margin: 0; }
+.card.white { background: var(--ink); color: var(--card); box-shadow: 0 18px 40px rgba(0,0,0,.35), inset 0 0 0 6px var(--ink), inset 0 0 0 7.5px rgba(244,236,220,.25); }
+.card.white .corner, .card.white .note { color: #b8ae9c; }
+@keyframes deal { from { transform: translateY(16px) rotate(-2deg); opacity: .2; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .card { animation: none; } }
+
+/* Done / results */
+.starter { background: rgba(0,0,0,.2); border: 1.5px solid var(--felt-line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 4px; }
+.starter b { font: 800 1.8rem/1.1 var(--display); color: var(--brass); overflow-wrap: anywhere; }
+.forgot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.results { list-style: none; margin: 0; padding: 0; text-align: left; border-top: 1px solid var(--felt-line); }
+.results li { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 10px; padding: 10px 2px; border-bottom: 1px solid var(--felt-line); }
+.results .who { font-weight: 700; overflow-wrap: anywhere; }
+.results .what { color: var(--muted); font-size: .9rem; grid-column: 1; overflow-wrap: anywhere; }
+.pill { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--felt-line); }
+.pill.imp { background: var(--alert); color: #2b0f06; }
+.pill.white { background: var(--card); color: var(--ink); }
+.chip.out { opacity: .4; text-decoration: line-through; }
+.verdict { margin: 0 auto; font: 800 1.6rem/1 var(--display); padding: 14px 26px; border-radius: 999px; background: var(--felt-line); color: var(--chalk); }
+.verdict.imp { background: var(--alert); color: #2b0f06; }
+.verdict.white { background: var(--card); color: var(--ink); }
+.results li.out .who { color: var(--muted); }
+.verdict-msg { margin: 0; font: 700 1.15rem/1.4 var(--display); }
+.verdict-msg.ok { color: var(--brass); }
+.verdict-msg.ko { color: var(--alert); }
+#guess-input { text-align: center; font-size: 1.2rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wordpair { display: flex; gap: 10px; }
+.wordpair > div { flex: 1; min-width: 0; background: rgba(0,0,0,.2); border-radius: 14px; padding: 12px; }
+.wordpair small { display: block; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+.wordpair b { font: 800 1.3rem/1.2 var(--display); overflow-wrap: anywhere; }
+
+/* Editor */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-weight: 700; font-size: .9rem; }
+.field textarea { min-height: 220px; resize: vertical; line-height: 1.6; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > .btn { flex: 1; }
+.error { color: var(--alert); margin: 0; font-size: .9rem; }
+</style>
+
+<!-- ================= SETUP ================= -->
+<main id="v-setup" class="view">
+  <header class="brand">
+    <h1>Mot <span>Masqué</span></h1>
+    <small>un seul téléphone</small>
+  </header>
+
+  <section class="panel" aria-labelledby="h-players">
+    <div class="panel-head">
+      <h2 id="h-players">Joueurs</h2>
+      <span class="count" id="present-count"></span>
+    </div>
+    <ul class="players" id="player-list"></ul>
+    <form class="add-row" id="add-form" autocomplete="off">
+      <input id="add-name" type="text" maxlength="24" placeholder="Prénom du joueur" aria-label="Prénom du joueur" enterkeyhint="done">
+      <button class="btn" type="submit">Ajouter</button>
+    </form>
+    <p class="hint">Touchez le rond pour marquer un joueur absent. L'ordre de la liste est l'ordre de passage du téléphone.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-roles">
+    <h2 id="h-roles">Rôles</h2>
+    <div class="roles">
+      <div class="role fixed"><span class="label">Civils</span><span class="num" id="n-civil">0</span><span class="hint">auto</span></div>
+      <div class="role">
+        <span class="label">Imposteurs</span><span class="num" id="n-imp">1</span>
+        <div class="stepper"><button type="button" id="imp-minus" aria-label="Un imposteur de moins">−</button><button type="button" id="imp-plus" aria-label="Un imposteur de plus">+</button></div>
+      </div>
+      <div class="role">
+        <span class="label">Mister White</span><span class="num" id="n-white">0</span>
+        <div class="stepper"><button type="button" id="white-minus" aria-label="Un Mister White de moins">−</button><button type="button" id="white-plus" aria-label="Un Mister White de plus">+</button></div>
+      </div>
+    </div>
+    <p class="hint" id="roles-hint"></p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-themes">
+    <div class="panel-head">
+      <h2 id="h-themes">Thèmes</h2>
+      <span class="count" id="pair-count"></span>
+    </div>
+    <div id="theme-groups" class="panel" style="gap:18px"></div>
+  </section>
+
+  <div class="actionbar">
+    <p class="summary" id="summary"></p>
+    <button class="btn primary wide" id="start-btn" type="button">Distribuer les mots</button>
+  </div>
+</main>
+
+<!-- ================= CUSTOM THEME EDITOR ================= -->
+<main id="v-editor" class="view" hidden>
+  <header class="brand"><h1 id="editor-title">Nouveau thème</h1></header>
+  <form id="editor-form" class="panel" autocomplete="off">
+    <div class="field">
+      <label for="ed-name">Nom du thème</label>
+      <input id="ed-name" type="text" maxlength="30" placeholder="Ex. : Nos vacances">
+    </div>
+    <div class="field">
+      <label for="ed-pairs">Paires de mots</label>
+      <textarea id="ed-pairs" placeholder="Chat / Tigre&#10;Plage / Piscine&#10;Pizza / Quiche"></textarea>
+      <p class="hint">Une paire par ligne, les deux mots séparés par « / ». Choisissez des mots proches : c'est ce qui rend la partie difficile.</p>
+    </div>
+    <p class="error" id="ed-error" hidden></p>
+    <div class="row">
+      <button class="btn ghost" type="button" id="ed-cancel">Annuler</button>
+      <button class="btn primary" type="submit">Enregistrer</button>
+    </div>
+    <button class="btn danger wide" type="button" id="ed-delete" hidden>Supprimer ce thème</button>
+  </form>
+</main>
+
+<!-- ================= PASS THE PHONE ================= -->
+<main id="v-pass" class="view stage" hidden>
+  <div class="progress" id="progress"></div>
+  <p class="eyebrow">Passez le téléphone à</p>
+  <p class="big" id="pass-name"></p>
+  <p class="sub" id="pass-sub">Vérifiez que personne d'autre ne regarde l'écran.</p>
+  <div class="actions">
+    <button class="btn primary wide" id="reveal-btn" type="button"></button>
+    <button class="link" id="abort-btn" type="button">Abandonner la partie</button>
+  </div>
+</main>
+
+<!-- ================= SECRET WORD ================= -->
+<main id="v-reveal" class="view stage" hidden>
+  <div id="card-slot"></div>
+  <div class="actions">
+    <button class="btn primary wide" id="hide-btn" type="button">J'ai retenu, cacher</button>
+  </div>
+</main>
+
+<!-- ================= GAME IN PROGRESS / GAME OVER ================= -->
+<main id="v-done" class="view stage" hidden>
+  <div id="play-wrap" class="panel" style="gap:22px">
+    <p class="eyebrow" id="round-label"></p>
+    <div class="starter">
+      <span class="sub">Le premier à parler est</span>
+      <b id="starter-name"></b>
+      <span class="sub">puis on tourne dans l'ordre de la liste. Chacun donne un indice sur son mot, puis tout le monde vote.</span>
+    </div>
+
+    <div class="panel">
+      <p class="sub">Après le vote, touchez le joueur éliminé.</p>
+      <div class="forgot" id="alive-list"></div>
+      <button class="btn primary wide" id="elim-btn" type="button" disabled>Choisissez un joueur</button>
+    </div>
+
+    <div class="panel">
+      <p class="sub">Quelqu'un a oublié son mot ?</p>
+      <div class="forgot" id="forgot-list"></div>
+    </div>
+  </div>
+
+  <div id="over-wrap" class="panel" hidden>
+    <p class="eyebrow">Partie terminée</p>
+    <p class="big" id="winner"></p>
+    <p class="sub" id="winner-sub"></p>
+    <div class="wordpair">
+      <div><small>Civils</small><b id="res-civil"></b></div>
+      <div><small>Imposteurs</small><b id="res-imp"></b></div>
+    </div>
+    <p class="sub" id="res-theme"></p>
+    <ul class="results" id="results"></ul>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary wide" id="again-btn" type="button">Nouvelle manche</button>
+    <button class="link" id="show-roles-btn" type="button">Arrêter la partie et révéler tous les rôles</button>
+    <button class="link" id="back-btn" type="button">Modifier les joueurs ou les thèmes</button>
+  </div>
+</main>
+
+<!-- ================= ELIMINATION ================= -->
+<main id="v-elim" class="view stage" hidden>
+  <p class="eyebrow">Joueur éliminé</p>
+  <p class="big" id="elim-name"></p>
+  <p class="sub">était</p>
+  <p class="verdict" id="elim-role"></p>
+  <form id="white-guess" class="panel" autocomplete="off" hidden>
+    <p class="sub">Dernière chance : passez le téléphone à Mister White. S'il écrit le mot des civils, il gagne la partie. Un seul essai.</p>
+    <div class="field">
+      <label for="guess-input" class="sr-only">Mot des civils</label>
+      <input id="guess-input" type="text" maxlength="40" placeholder="Le mot des civils" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
+    </div>
+    <button class="btn primary wide" id="guess-submit" type="submit">Valider ma réponse</button>
+  </form>
+  <p class="verdict-msg" id="guess-result" hidden></p>
+  <div class="actions">
+    <button class="btn primary wide" id="elim-continue" type="button">Continuer</button>
+  </div>
+</main>
+
+<script>
+/* ---------------- Word bank ----------------
+   Each pair is "word A|word B". Which word goes to civilians is drawn at random. */
+const GROUPS = [
+  { id: 'classiques', name: 'Classiques' },
+  { id: 'pop', name: 'Culture pop' },
+  { id: 'adulte', name: 'Soirée', adult: true },
+  { id: 'perso', name: 'Mes thèmes' }
+];
+const RAW = [
+  ['nourriture','classiques','Nourriture','Pizza|Quiche;Croissant|Pain au chocolat;Fromage|Beurre;Sushi|Maki;Crêpe|Gaufre;Frites|Chips;Pomme|Poire;Citron|Orange;Hamburger|Sandwich;Glace|Sorbet;Café|Thé;Miel|Confiture;Lasagnes|Gratin;Ketchup|Mayonnaise;Chocolat|Caramel;Raclette|Fondue;Baguette|Brioche;Tomate|Poivron;Riz|Pâtes;Couscous|Paella;Macaron|Meringue;Soupe|Velouté'],
+  ['animaux','classiques','Animaux','Chat|Tigre;Chien|Loup;Lion|Guépard;Dauphin|Requin;Abeille|Guêpe;Cheval|Âne;Hibou|Chouette;Crocodile|Alligator;Lapin|Lièvre;Papillon|Libellule;Pingouin|Manchot;Grenouille|Crapaud;Souris|Rat;Vache|Taureau;Aigle|Faucon;Serpent|Lézard;Escargot|Limace;Ours|Panda;Mouton|Chèvre;Kangourou|Koala;Poule|Canard'],
+  ['maison','classiques','Maison & objets','Lit|Canapé;Fourchette|Cuillère;Stylo|Crayon;Téléphone|Tablette;Lampe|Bougie;Parapluie|Imperméable;Clé|Cadenas;Miroir|Fenêtre;Oreiller|Couette;Brosse à dents|Dentifrice;Frigo|Congélateur;Ciseaux|Couteau;Montre|Réveil;Chaise|Tabouret;Savon|Shampoing;Télévision|Ordinateur;Sac à dos|Valise;Livre|Magazine;Balai|Aspirateur;Assiette|Bol'],
+  ['lieux','classiques','Lieux & voyages','Plage|Piscine;Montagne|Colline;Hôpital|Pharmacie;École|Université;Cinéma|Théâtre;Avion|Hélicoptère;Train|Métro;Paris|Londres;Bibliothèque|Librairie;Restaurant|Cantine;Musée|Galerie;Hôtel|Camping;Forêt|Jungle;Désert|Savane;Zoo|Aquarium;Supermarché|Marché;Château|Palais;Port|Aéroport;Église|Cathédrale;Île|Presqu\'île'],
+  ['metiers','classiques','Métiers','Médecin|Infirmier;Pompier|Policier;Boulanger|Pâtissier;Professeur|Directeur;Avocat|Juge;Pilote|Hôtesse de l\'air;Cuisinier|Serveur;Coiffeur|Barbier;Plombier|Électricien;Dentiste|Chirurgien;Journaliste|Écrivain;Architecte|Maçon;Vétérinaire|Fermier;Acteur|Chanteur;Facteur|Livreur;Astronaute|Astronome;Banquier|Comptable;Photographe|Peintre'],
+  ['sports','classiques','Sports & loisirs','Football|Rugby;Tennis|Badminton;Ski|Snowboard;Natation|Plongée;Basket|Handball;Vélo|Trottinette;Boxe|Judo;Golf|Mini-golf;Échecs|Dames;Surf|Skate;Course à pied|Marche;Danse|Gymnastique;Pétanque|Bowling;Yoga|Pilates;Escalade|Randonnée;Volley|Beach-volley;Pêche|Chasse;Puzzle|Lego'],
+  ['nature','classiques','Nature & météo','Pluie|Neige;Soleil|Lune;Orage|Tempête;Arbre|Buisson;Rose|Tulipe;Volcan|Geyser;Rivière|Lac;Nuage|Brouillard;Arc-en-ciel|Aurore boréale;Sable|Gravier;Étoile|Planète;Mer|Océan;Cascade|Fontaine;Feuille|Pétale;Vent|Tornade;Champignon|Mousse;Cactus|Palmier;Coquillage|Galet'],
+  ['vetements','classiques','Vêtements','Jean|Jogging;Chemise|T-shirt;Baskets|Tongs;Écharpe|Cravate;Casquette|Bonnet;Robe|Jupe;Pull|Gilet;Lunettes|Lentilles;Pyjama|Peignoir;Short|Maillot de bain;Manteau|Doudoune;Chaussettes|Collants;Gants|Moufles;Ceinture|Bretelles;Bague|Bracelet;Sac à main|Pochette;Sandales|Espadrilles'],
+
+  ['films','pop','Films & séries','Titanic|Avatar;Harry Potter|Le Seigneur des anneaux;Star Wars|Star Trek;Friends|How I Met Your Mother;Le Roi lion|Le Livre de la jungle;Jurassic Park|King Kong;Les Simpson|Les Griffin;Game of Thrones|The Witcher;La Casa de Papel|Lupin;Stranger Things|Mercredi;Shrek|L\'Âge de glace;Les Bronzés|Les Visiteurs;Intouchables|Bienvenue chez les Ch\'tis;Netflix|Disney+;Pirates des Caraïbes|Indiana Jones;Matrix|Inception;La Reine des neiges|Raiponce;Squid Game|Hunger Games;Astérix|Tintin'],
+  ['musique','pop','Musique','Guitare|Basse;Piano|Synthétiseur;Rap|Slam;Rock|Métal;Batterie|Percussions;Violon|Violoncelle;Michael Jackson|Prince;Beyoncé|Rihanna;Johnny Hallyday|Eddy Mitchell;Stromae|Angèle;The Beatles|The Rolling Stones;Eurovision|The Voice;Festival|Concert;Vinyle|Cassette;Spotify|Deezer;Jul|Ninho;Daft Punk|David Guetta;Opéra|Comédie musicale;Aya Nakamura|Wejdene;Karaoké|Blind test'],
+  ['personnages','pop','Personnages & héros','Superman|Captain America;Spider-Man|Ant-Man;Mickey|Donald;Mario|Luigi;Blanche-Neige|Cendrillon;Sherlock Holmes|Hercule Poirot;Dracula|Frankenstein;Pikachu|Rondoudou;Astérix|Obélix;Père Noël|Saint Nicolas;Hulk|Shrek;Dark Vador|Voldemort;James Bond|OSS 117;Bob l\'éponge|Patrick;Tarzan|Mowgli;Aladdin|Hercule;Wonder Woman|Catwoman;Gandalf|Dumbledore;Pinocchio|Peter Pan;Joker|Harley Quinn'],
+  ['jeux','pop','Jeux vidéo & jouets','Minecraft|Roblox;Fortnite|Call of Duty;PlayStation|Xbox;Nintendo Switch|Game Boy;Tetris|Candy Crush;Zelda|Final Fantasy;FIFA|PES;Pokémon|Digimon;GTA|Red Dead Redemption;Monopoly|Cluedo;Uno|Dobble;Lego|Playmobil;Barbie|Polly Pocket;Rubik\'s Cube|Casse-tête;Among Us|Loup-garou;Les Sims|Animal Crossing;Pac-Man|Space Invaders;Tamagotchi|Furby;Clash of Clans|Clash Royale;Mario Kart|Rocket League'],
+  ['celebrites','pop','Célébrités','Zidane|Mbappé;Messi|Ronaldo;Elon Musk|Jeff Bezos;Omar Sy|Jamel Debbouze;Brad Pitt|George Clooney;Napoléon|Louis XIV;Einstein|Newton;Léonard de Vinci|Picasso;Obama|Kennedy;Teddy Riner|Tony Parker;Taylor Swift|Lady Gaga;Squeezie|Norman;Mozart|Beethoven;Victor Hugo|Molière;Usain Bolt|Carl Lewis;Kim Kardashian|Paris Hilton;Coco Chanel|Yves Saint Laurent;Steve Jobs|Bill Gates'],
+
+  ['apero','adulte','Apéro & fête','Bière|Cidre;Vin rouge|Vin rosé;Vodka|Tequila;Mojito|Spritz;Gueule de bois|Migraine;Boîte de nuit|Bar;Shot|Cocktail;Champagne|Prosecco;Beer pong|Flip cup;Videur|Barman;Before|After;Tinder|Bumble;Ex|Crush;Gin tonic|Whisky coca;Apéro|Brunch;Rhum|Whisky;Kebab|Tacos;Pastis|Anisette;Sauna|Jacuzzi;Action ou vérité|Je n\'ai jamais'],
+  ['coquin','adulte','Coquin','Bisou|Câlin;Préservatif|Pilule;Lingerie|Maillot de bain;Strip-tease|Lap dance;Menottes|Bandeau;Premier rendez-vous|Coup d\'un soir;Massage|Caresse;Suçon|Morsure;Fantasme|Rêve érotique;Plan à trois|Échangisme;Speed dating|Site de rencontre;Sextos|Nudes;Kamasutra|Cinquante nuances de Grey;Fessée|Chatouilles;Lune de miel|Saint-Valentin;Talons aiguilles|Porte-jarretelles;Chantilly|Huile de massage;Plan cul|Sex friend;Love hotel|Chambre d\'hôtes']
+];
+const BANK = RAW.map(([id, group, name, list]) => ({ id, group, name, pairs: list.split(';').map(p => p.split('|')) }));
+
+/* ---------------- Persistence (per device) ---------------- */
+const KEY = 'motmasque.v1';
+const DEFAULTS = {
+  players: [
+    { name: 'Alice', on: true }, { name: 'Bastien', on: true }, { name: 'Chloé', on: true },
+    { name: 'Dylan', on: true }, { name: 'Emma', on: true }
+  ],
+  imp: 1, white: 0,
+  themes: ['nourriture', 'animaux', 'maison', 'lieux'],
+  custom: [],
+  used: []
+};
+let S = load();
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) return Object.assign(structuredClone(DEFAULTS), JSON.parse(raw));
+  } catch (e) {}
+  return structuredClone(DEFAULTS);
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ---------------- Helpers ---------------- */
+const $ = id => document.getElementById(id);
+const el = (tag, props = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') n.className = v;
+    else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+    else if (k === 'text') n.textContent = v;
+    else n.setAttribute(k, v);
+  }
+  kids.forEach(c => c != null && n.append(c));
+  return n;
+};
+const rand = n => Math.floor(Math.random() * n);
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const plural = (n, one, many) => n + ' ' + (n > 1 ? many : one);
+function allThemes() { return BANK.concat(S.custom.map(c => ({ ...c, group: 'perso' }))); }
+function show(view) {
+  document.querySelectorAll('.view').forEach(v => v.hidden = v.id !== 'v-' + view);
+  window.scrollTo(0, 0);
+}
+/* Two-tap confirmation: first tap arms the button, second tap acts. */
+function confirmTap(btn, armedText, action) {
+  const original = btn.textContent;
+  let timer;
+  btn.addEventListener('click', () => {
+    if (btn.dataset.armed) { clearTimeout(timer); delete btn.dataset.armed; btn.textContent = original; action(); return; }
+    btn.dataset.armed = '1'; btn.textContent = armedText;
+    timer = setTimeout(() => { delete btn.dataset.armed; btn.textContent = original; }, 3000);
+  });
+}
+
+/* ---------------- Setup screen ---------------- */
+const present = () => S.players.filter(p => p.on);
+const maxSpecial = n => Math.floor(n / 2);   // civilians must be at least as many as impostors + Mister White, and at least 2
+function clampRoles() {
+  const n = present().length;
+  const max = Math.max(0, Math.min(maxSpecial(n), n - 2));
+  if (S.imp + S.white > max) {
+    S.white = Math.min(S.white, max);
+    S.imp = Math.max(0, max - S.white);
+  }
+  if (n >= 3 && S.imp + S.white === 0) S.imp = 1;
+}
+
+function renderPlayers() {
+  const list = $('player-list');
+  list.replaceChildren();
+  let seat = 0;
+  S.players.forEach((p, i) => {
+    const li = el('li', { class: p.on ? '' : 'off' },
+      el('span', { class: 'seat', text: p.on ? String(++seat) : '–' }),
+      el('button', { class: 'toggle', type: 'button', 'aria-pressed': String(p.on), 'aria-label': (p.on ? 'Marquer absent : ' : 'Marquer présent : ') + p.name,
+        onclick: () => { p.on = !p.on; changed(); } }),
+      el('span', { class: 'name', text: p.name }),
+      el('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Monter ' + p.name, text: '↑',
+        onclick: () => { if (i > 0) { [S.players[i - 1], S.players[i]] = [S.players[i], S.players[i - 1]]; changed(); } } }),
+      el('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Supprimer ' + p.name, text: '✕',
+        onclick: () => { S.players.splice(i, 1); changed(); } })
+    );
+    if (i === 0) li.children[3].disabled = true;
+    list.append(li);
+  });
+  $('present-count').textContent = plural(present().length, 'présent', 'présents');
+}
+
+function renderRoles() {
+  const n = present().length;
+  const max = Math.max(0, Math.min(maxSpecial(n), n - 2));
+  $('n-imp').textContent = S.imp;
+  $('n-white').textContent = S.white;
+  $('n-civil').textContent = Math.max(0, n - S.imp - S.white);
+  $('imp-minus').disabled = S.imp <= 0 || (S.imp === 1 && S.white === 0);
+  $('white-minus').disabled = S.white <= 0 || (S.white === 1 && S.imp === 0);
+  $('imp-plus').disabled = $('white-plus').disabled = S.imp + S.white >= max;
+  const hint = $('roles-hint');
+  if (n < 3) { hint.textContent = 'Il faut au moins 3 joueurs présents.'; hint.className = 'hint warn'; }
+  else { hint.textContent = `Avec ${n} joueurs : jusqu'à ${max} imposteurs et Mister White au total. Mister White ne reçoit aucun mot.`; hint.className = 'hint'; }
+}
+
+function renderThemes() {
+  const wrap = $('theme-groups');
+  wrap.replaceChildren();
+  const themes = allThemes();
+  for (const g of GROUPS) {
+    const items = themes.filter(t => t.group === g.id);
+    const allOn = items.length > 0 && items.every(t => S.themes.includes(t.id));
+    const head = el('div', { class: 'group-head' },
+      el('h3', {}, g.name, g.adult ? el('span', { class: 'tag', text: '18+' }) : null));
+    if (items.length) head.append(el('button', { class: 'link', type: 'button', text: allOn ? 'Aucun' : 'Tout',
+      onclick: () => {
+        const ids = items.map(t => t.id);
+        S.themes = allOn ? S.themes.filter(id => !ids.includes(id)) : [...new Set(S.themes.concat(ids))];
+        changed();
+      } }));
+    const chips = el('div', { class: 'chips' });
+    for (const t of items) {
+      const chip = el('button', { class: 'chip', type: 'button', 'aria-pressed': String(S.themes.includes(t.id)),
+        onclick: () => { S.themes = S.themes.includes(t.id) ? S.themes.filter(x => x !== t.id) : S.themes.concat(t.id); changed(); } },
+        t.name, el('span', { class: 'n', text: String(t.pairs.length) }));
+      if (g.id === 'perso') {
+        chips.append(el('span', { class: 'custom-item' }, chip,
+          el('button', { class: 'edit', type: 'button', 'aria-label': 'Modifier ' + t.name, text: '✎', onclick: () => openEditor(t.id) })));
+      } else chips.append(chip);
+    }
+    if (g.id === 'perso') chips.append(el('button', { class: 'chip add', type: 'button', text: '+ Créer un thème', onclick: () => openEditor(null) }));
+    wrap.append(el('div', { class: 'group' }, head, chips));
+  }
+  const pairs = themes.filter(t => S.themes.includes(t.id)).reduce((s, t) => s + t.pairs.length, 0);
+  $('pair-count').textContent = plural(pairs, 'paire', 'paires');
+}
+
+function renderSummary() {
+  const n = present().length;
+  const nThemes = allThemes().filter(t => S.themes.includes(t.id)).length;
+  const btn = $('start-btn');
+  let problem = '';
+  if (n < 3) problem = 'Ajoutez au moins 3 joueurs présents.';
+  else if (nThemes === 0) problem = 'Choisissez au moins un thème.';
+  else if (S.imp + S.white === 0) problem = 'Ajoutez au moins un imposteur ou un Mister White.';
+  btn.disabled = !!problem;
+  const parts = [plural(n, 'joueur', 'joueurs'), plural(S.imp, 'imposteur', 'imposteurs')];
+  if (S.white) parts.push(S.white + ' Mister White');
+  parts.push(plural(nThemes, 'thème', 'thèmes'));
+  $('summary').textContent = problem || parts.join(' · ');
+  $('summary').className = problem ? 'summary hint warn' : 'summary';
+}
+
+function changed() { clampRoles(); save(); renderPlayers(); renderRoles(); renderThemes(); renderSummary(); }
+
+$('add-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = $('add-name');
+  const name = input.value.trim().replace(/\s+/g, ' ');
+  if (!name) return;
+  if (S.players.some(p => p.name.toLowerCase() === name.toLowerCase())) { input.select(); return; }
+  S.players.push({ name, on: true });
+  input.value = '';
+  changed();
+});
+$('imp-plus').onclick = () => { S.imp++; changed(); };
+$('imp-minus').onclick = () => { S.imp--; changed(); };
+$('white-plus').onclick = () => { S.white++; changed(); };
+$('white-minus').onclick = () => { S.white--; changed(); };
+
+/* ---------------- Custom theme editor ---------------- */
+let editingId = null;
+function openEditor(id) {
+  editingId = id;
+  const t = id ? S.custom.find(c => c.id === id) : null;
+  $('editor-title').textContent = t ? 'Modifier le thème' : 'Nouveau thème';
+  $('ed-name').value = t ? t.name : '';
+  $('ed-pairs').value = t ? t.pairs.map(p => p.join(' / ')).join('\n') : '';
+  $('ed-error').hidden = true;
+  $('ed-delete').hidden = !t;
+  show('editor');
+  if (!t) $('ed-name').focus();
+}
+$('editor-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = $('ed-name').value.trim();
+  const lines = $('ed-pairs').value.split('\n').map(l => l.trim()).filter(Boolean);
+  const pairs = [], bad = [];
+  lines.forEach((l, i) => {
+    const parts = l.split('/').map(s => s.trim()).filter(Boolean);
+    if (parts.length === 2 && parts[0].toLowerCase() !== parts[1].toLowerCase()) pairs.push(parts); else bad.push(i + 1);
+  });
+  const err = $('ed-error');
+  if (!name) { err.textContent = 'Donnez un nom au thème.'; err.hidden = false; return; }
+  if (bad.length) { err.textContent = `Ligne${bad.length > 1 ? 's' : ''} ${bad.join(', ')} : écrivez deux mots différents séparés par « / ».`; err.hidden = false; return; }
+  if (!pairs.length) { err.textContent = 'Ajoutez au moins une paire de mots.'; err.hidden = false; return; }
+  if (editingId) Object.assign(S.custom.find(c => c.id === editingId), { name, pairs });
+  else { const id = 'perso-' + Date.now().toString(36); S.custom.push({ id, name, pairs }); S.themes.push(id); }
+  changed(); show('setup');
+});
+$('ed-cancel').onclick = () => show('setup');
+confirmTap($('ed-delete'), 'Toucher encore pour supprimer', () => {
+  S.custom = S.custom.filter(c => c.id !== editingId);
+  S.themes = S.themes.filter(x => x !== editingId);
+  changed(); show('setup');
+});
+
+/* ---------------- Game ---------------- */
+let G = null;
+let wakeLock = null;
+async function keepAwake() { try { wakeLock = await navigator.wakeLock?.request('screen'); } catch (e) {} }
+
+function pickPair() {
+  const pool = [];
+  for (const t of allThemes().filter(t => S.themes.includes(t.id)))
+    for (const p of t.pairs) pool.push({ theme: t.name, pair: p, key: t.id + ':' + p.join('|') });
+  let fresh = pool.filter(x => !S.used.includes(x.key));
+  if (!fresh.length) {                       // every pair of this selection has been played: start over
+    const keys = new Set(pool.map(x => x.key));
+    S.used = S.used.filter(k => !keys.has(k));
+    fresh = pool;
+  }
+  const choice = fresh[rand(fresh.length)];
+  S.used.push(choice.key);
+  if (S.used.length > 2000) S.used = S.used.slice(-1000);
+  return choice;
+}
+
+function startGame() {
+  const players = present();
+  const { theme, pair } = pickPair();
+  const [civil, imp] = Math.random() < .5 ? pair : [pair[1], pair[0]];
+  const roles = shuffle([
+    ...Array(S.imp).fill('imp'), ...Array(S.white).fill('white'),
+    ...Array(players.length - S.imp - S.white).fill('civil')
+  ]);
+  const order = players.map((p, i) => ({ name: p.name, role: roles[i], word: roles[i] === 'civil' ? civil : roles[i] === 'imp' ? imp : null }));
+  G = { order, civil, imp, theme, idx: 0, round: 1, starter: null, selected: null, over: false, winner: null, single: null };
+  pickStarter();
+  save();
+  keepAwake();
+  showPass();
+}
+
+function showPass() {
+  const p = G.single != null ? G.order[G.single] : G.order[G.idx];
+  $('pass-name').textContent = p.name;
+  $('reveal-btn').textContent = `Je suis ${p.name}, voir mon mot`;
+  const prog = $('progress');
+  prog.replaceChildren(...G.order.map((_, i) => el('i', { class: G.single != null ? '' : i < G.idx ? 'done' : i === G.idx ? 'now' : '' })));
+  prog.hidden = G.single != null;
+  $('abort-btn').hidden = G.single != null;
+  show('pass');
+}
+
+function showCard() {
+  const i = G.single != null ? G.single : G.idx;
+  const p = G.order[i];
+  const card = p.role === 'white'
+    ? el('div', { class: 'card white' },
+        el('span', { class: 'corner', text: p.name }),
+        el('div', { class: 'word', text: 'Mister White' }),
+        el('p', { class: 'note', text: 'Vous n\'avez pas de mot. Écoutez les indices des autres et bluffez. Si vous êtes éliminé, devinez le mot des civils pour gagner.' }))
+    : el('div', { class: 'card' },
+        el('span', { class: 'corner', text: p.name }),
+        el('div', { class: 'word', text: p.word }),
+        el('p', { class: 'note', text: 'Votre mot secret. Ne le montrez à personne.' }));
+  $('card-slot').replaceChildren(card);
+  show('reveal');
+}
+
+function nextAfterCard() {
+  if (G.single != null) { G.single = null; showDone(); return; }
+  G.idx++;
+  if (G.idx < G.order.length) showPass(); else showDone();
+}
+
+const LABEL = { civil: 'Civil', imp: 'Imposteur', white: 'Mister White' };
+const alive = () => G.order.filter(p => !p.out);
+
+/* Mister White never speaks first. */
+function pickStarter() {
+  const speakers = alive().filter(p => p.role !== 'white');
+  G.starter = speakers[rand(speakers.length)].name;
+}
+
+/* Civilians win when every impostor and Mister White is out.
+   The others win when only one civilian is left. */
+function checkWinner() {
+  const a = alive();
+  const civ = a.filter(p => p.role === 'civil').length;
+  const spec = a.filter(p => p.role !== 'civil');
+  if (spec.length === 0) return 'civil';
+  if (civ <= 1) return spec.some(p => p.role === 'imp') ? (spec.some(p => p.role === 'white') ? 'both' : 'imp') : 'whiteSurvive';
+  return null;
+}
+
+function endGame(winner) { G.over = true; G.winner = winner; showDone(); }
+
+function showDone() {
+  $('play-wrap').hidden = G.over;
+  $('over-wrap').hidden = !G.over;
+  $('again-btn').hidden = !G.over;
+  $('back-btn').hidden = !G.over;
+  $('show-roles-btn').hidden = G.over;
+
+  if (!G.over) {
+    $('round-label').textContent = `Tour ${G.round} · ${plural(alive().length, 'joueur en jeu', 'joueurs en jeu')}`;
+    $('starter-name').textContent = G.starter;
+    $('alive-list').replaceChildren(...G.order.map((p, i) => {
+      const b = el('button', { class: 'chip' + (p.out ? ' out' : ''), type: 'button', text: p.name,
+        'aria-pressed': String(G.selected === i),
+        onclick: () => { G.selected = G.selected === i ? null : i; showDone(); } });
+      if (p.out) b.disabled = true;
+      return b;
+    }));
+    const btn = $('elim-btn');
+    btn.disabled = G.selected == null;
+    btn.textContent = G.selected == null ? 'Choisissez un joueur' : `Éliminer ${G.order[G.selected].name}`;
+    $('forgot-list').replaceChildren(...G.order.map((p, i) => p.out ? null :
+      el('button', { class: 'chip', type: 'button', text: p.name, onclick: () => { G.single = i; showPass(); } })).filter(Boolean));
+  } else {
+    const titles = {
+      civil: ['Les civils gagnent', 'Tous les intrus ont été démasqués.'],
+      imp: ['Les imposteurs gagnent', 'Il ne reste qu\'un civil en jeu.'],
+      both: ['Les imposteurs et Mister White gagnent', 'Il ne reste qu\'un civil en jeu.'],
+      whiteSurvive: ['Mister White gagne', 'Il ne reste qu\'un civil en jeu.'],
+      whiteGuess: ['Mister White gagne', `Il a deviné le mot des civils en écrivant « ${G.whiteGuess} ».`],
+      stopped: ['Rôles révélés', 'La partie a été arrêtée avant la fin.']
+    };
+    const [t, sub] = titles[G.winner];
+    $('winner').textContent = t;
+    $('winner-sub').textContent = sub;
+    $('res-civil').textContent = G.civil;
+    $('res-imp').textContent = G.imp;
+    $('res-theme').textContent = 'Thème : ' + G.theme;
+    $('results').replaceChildren(...G.order.map(p => el('li', { class: p.out ? 'out' : '' },
+      el('span', { class: 'who', text: p.name }),
+      el('span', { class: 'pill ' + p.role, text: LABEL[p.role] }),
+      el('span', { class: 'what', text: (p.word || 'aucun mot') + (p.out ? ` · éliminé au tour ${p.out}` : ' · encore en jeu') }))));
+  }
+  show('done');
+}
+
+function eliminate() {
+  const p = G.order[G.selected];
+  p.out = G.round;
+  G.selected = null;
+  G.lastOut = p;
+  $('elim-name').textContent = p.name;
+  const v = $('elim-role');
+  v.textContent = LABEL[p.role];
+  v.className = 'verdict ' + p.role;
+  const isWhite = p.role === 'white';
+  $('white-guess').hidden = !isWhite;
+  $('guess-input').value = '';
+  $('guess-result').hidden = true;
+  $('elim-continue').hidden = isWhite;
+  $('elim-continue').textContent = 'Continuer';
+  $('elim-continue').onclick = afterElimination;
+  show('elim');
+  if (isWhite) setTimeout(() => $('guess-input').focus(), 50);
+}
+
+/* Lenient comparison for Mister White's written guess:
+   ignores case, accents, punctuation, leading articles and a final plural "s",
+   and forgives one typo on words of 5 letters or more. */
+function normalize(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/^(le|la|les|un|une|des|du|de la|l)[\s']+/, '')
+    .replace(/[^a-z0-9]/g, '').replace(/(s|x)$/, '');
+}
+function distance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function guessMatches(guess, word) {
+  const g = normalize(guess), w = normalize(word);
+  if (!g) return false;
+  return g === w || (w.length >= 5 && distance(g, w) <= 1);
+}
+
+$('white-guess').addEventListener('submit', e => {
+  e.preventDefault();
+  const guess = $('guess-input').value.trim();
+  if (!guess) { $('guess-input').focus(); return; }
+  $('guess-input').blur();
+  $('white-guess').hidden = true;
+  const res = $('guess-result');
+  const won = guessMatches(guess, G.civil);
+  G.whiteGuess = guess;
+  res.textContent = won ? `« ${guess} » : bonne réponse !` : `« ${guess} » : ce n'est pas le mot des civils.`;
+  res.className = 'verdict-msg ' + (won ? 'ok' : 'ko');
+  res.hidden = false;
+  const btn = $('elim-continue');
+  btn.hidden = false;
+  btn.textContent = won ? 'Voir les résultats' : 'Continuer';
+  btn.onclick = won ? () => endGame('whiteGuess') : afterElimination;
+});
+
+function afterElimination() {
+  const w = checkWinner();
+  if (w) { endGame(w); return; }
+  G.round++;
+  pickStarter();
+  showDone();
+}
+
+$('start-btn').onclick = startGame;
+$('reveal-btn').onclick = showCard;
+$('hide-btn').onclick = nextAfterCard;
+confirmTap($('abort-btn'), 'Toucher encore pour abandonner', () => { G = null; show('setup'); });
+$('elim-btn').onclick = eliminate;
+confirmTap($('show-roles-btn'), 'Toucher encore : tout le monde verra les rôles', () => endGame('stopped'));
+$('again-btn').onclick = startGame;
+$('back-btn').onclick = () => { G = null; changed(); show('setup'); };
+document.addEventListener('visibilitychange', () => { if (G && document.visibilityState === 'visible') keepAwake(); });
+
+changed();
+show('setup');
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>

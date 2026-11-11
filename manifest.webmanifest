@@ -1,0 +1,17 @@
+{
+  "name": "Mot Masqué",
+  "short_name": "Mot Masqué",
+  "description": "Distribue les mots secrets d'une partie entre amis sur un seul téléphone.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a2a24",
+  "theme_color": "#0f3a32",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
