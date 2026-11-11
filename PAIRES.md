@@ -1,18 +1,18 @@
 # Mot Masqué — toutes les paires de mots
 
-31 thèmes · 1132 paires. Dans chaque partie, l’appli tire au hasard lequel des deux mots va aux civils.
+31 thèmes · 1585 paires. Dans chaque partie, l’appli tire au hasard lequel des deux mots va aux civils.
 
 ## Sommaire
 
-- **Classiques** : Nourriture (61), Animaux (51), Maison & objets (55), Lieux & voyages (43), Métiers (44), Sports & loisirs (42), Nature & météo (44), Vêtements (35), Transports & route (34), Corps & santé (37), Bricolage & jardin (30)
-- **Culture pop** : Films & séries (45), Musique (44), Personnages & héros (43), Jeux vidéo & jouets (43), Célébrités (39), Dessins animés & mangas (30), Réseaux & tech (35)
-- **Thèmes originaux** : France & régions (30), Monde & pays (34), Fêtes & traditions (28), Mythes & fantastique (30), Histoire (32), Espace & science (30), Superpouvoirs (22), Nostalgie années 2000 (28), Petits tracas (28), Bureau & travail (30), École & enfance (30), Émotions & caractère (30), Famille & vie à deux (25)
+- **Classiques** : Nourriture (81), Animaux (66), Maison & objets (70), Lieux & voyages (57), Métiers (60), Sports & loisirs (57), Nature & météo (60), Vêtements (48), Transports & route (48), Corps & santé (52), Bricolage & jardin (44)
+- **Culture pop** : Films & séries (65), Musique (66), Personnages & héros (60), Jeux vidéo & jouets (57), Célébrités (60), Dessins animés & mangas (42), Réseaux & tech (50)
+- **Thèmes originaux** : France & régions (44), Monde & pays (54), Fêtes & traditions (40), Mythes & fantastique (42), Histoire (44), Espace & science (42), Superpouvoirs (32), Nostalgie années 2000 (40), Petits tracas (37), Bureau & travail (42), École & enfance (43), Émotions & caractère (46), Famille & vie à deux (36)
 
 ---
 
 # Classiques
 
-## Nourriture — 61 paires
+## Nourriture — 81 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -77,8 +77,28 @@
 | 59 | Noisette | Amande |
 | 60 | Cacahuète | Pistache |
 | 61 | Kiwi | Litchi |
+| 62 | Clémentine | Mandarine |
+| 63 | Myrtille | Cassis |
+| 64 | Raisin | Groseille |
+| 65 | Mozzarella | Burrata |
+| 66 | Comté | Emmental |
+| 67 | Spaghetti | Tagliatelles |
+| 68 | Gnocchi | Ravioli |
+| 69 | Tiramisu | Panna cotta |
+| 70 | Éclair | Religieuse |
+| 71 | Crème brûlée | Flan |
+| 72 | Mousse au chocolat | Fondant au chocolat |
+| 73 | Chantilly | Crème anglaise |
+| 74 | Limonade | Soda |
+| 75 | Coca | Ice Tea |
+| 76 | Bacon | Lardons |
+| 77 | Poireau | Céleri |
+| 78 | Champignon | Truffe |
+| 79 | Bretzel | Bagel |
+| 80 | Kebab | Shawarma |
+| 81 | Sauce tomate | Pesto |
 
-## Animaux — 51 paires
+## Animaux — 66 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -133,8 +153,23 @@
 | 49 | Poisson rouge | Carpe |
 | 50 | Crabe | Homard |
 | 51 | Hippopotame | Rhinocéros |
+| 52 | Loutre | Castor |
+| 53 | Mouette | Goéland |
+| 54 | Cochon d'Inde | Gerbille |
+| 55 | Puma | Lynx |
+| 56 | Vautour | Condor |
+| 57 | Ver de terre | Chenille |
+| 58 | Sauterelle | Criquet |
+| 59 | Saumon | Truite |
+| 60 | Paon | Dindon |
+| 61 | Autruche | Émeu |
+| 62 | Panda roux | Raton laveur |
+| 63 | Morse | Éléphant de mer |
+| 64 | Pélican | Albatros |
+| 65 | Ours polaire | Renard polaire |
+| 66 | Gazelle | Antilope |
 
-## Maison & objets — 55 paires
+## Maison & objets — 70 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -193,8 +228,23 @@
 | 53 | Lessive | Adoucissant |
 | 54 | Fer à repasser | Défroisseur |
 | 55 | Éponge | Serpillière |
+| 56 | Économe | Râpe |
+| 57 | Passoire | Écumoire |
+| 58 | Spatule | Louche |
+| 59 | Nappe | Set de table |
+| 60 | Bougeoir | Chandelier |
+| 61 | Horloge | Pendule |
+| 62 | Porte-manteau | Cintre |
+| 63 | Matelas | Sommier |
+| 64 | Lit superposé | Mezzanine |
+| 65 | Tiroir | Placard |
+| 66 | Interrupteur | Prise électrique |
+| 67 | Robinet | Pommeau de douche |
+| 68 | Pince à linge | Étendoir |
+| 69 | Machine à laver | Sèche-linge |
+| 70 | Lave-vaisselle | Égouttoir |
 
-## Lieux & voyages — 43 paires
+## Lieux & voyages — 57 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -241,8 +291,22 @@
 | 41 | Cabane | Tente |
 | 42 | Plateau télé | Studio radio |
 | 43 | Salle d'attente | Accueil |
+| 44 | Crèche | Garderie |
+| 45 | Salon de coiffure | Institut de beauté |
+| 46 | Patinoire | Bowling |
+| 47 | Casino | PMU |
+| 48 | Mosquée | Synagogue |
+| 49 | Cabinet dentaire | Cabinet médical |
+| 50 | Refuge | Gîte |
+| 51 | Caserne de pompiers | Gendarmerie |
+| 52 | Usine | Entrepôt |
+| 53 | Terrain de foot | Terrain de basket |
+| 54 | Arène | Amphithéâtre |
+| 55 | Bar à vin | Pub |
+| 56 | Marina | Port de pêche |
+| 57 | Centre commercial | Galerie marchande |
 
-## Métiers — 44 paires
+## Métiers — 60 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -290,8 +354,24 @@
 | 42 | Prêtre | Moine |
 | 43 | Maire | Député |
 | 44 | Président | Roi |
+| 45 | Contrôleur | Conducteur de train |
+| 46 | Sommelier | Barman |
+| 47 | Agriculteur | Viticulteur |
+| 48 | Apiculteur | Éleveur |
+| 49 | Dessinateur | Illustrateur |
+| 50 | Réalisateur | Producteur |
+| 51 | Comédien | Humoriste |
+| 52 | DJ | Animateur radio |
+| 53 | Ambulancier | Secouriste |
+| 54 | Huissier | Greffier |
+| 55 | Éboueur | Balayeur |
+| 56 | Carreleur | Plâtrier |
+| 57 | Fleuriste | Pépiniériste |
+| 58 | Guide touristique | Agent de voyage |
+| 59 | Traducteur | Interprète |
+| 60 | Coach sportif | Professeur de yoga |
 
-## Sports & loisirs — 42 paires
+## Sports & loisirs — 57 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -337,8 +417,23 @@
 | 40 | Cuisine | Pâtisserie |
 | 41 | Lecture | Écriture |
 | 42 | Camping | Caravaning |
+| 43 | Water-polo | Natation synchronisée |
+| 44 | Ski de fond | Biathlon |
+| 45 | Bobsleigh | Luge |
+| 46 | Plongeon | Trampoline |
+| 47 | Breakdance | Hip-hop |
+| 48 | Salsa | Tango |
+| 49 | Kitesurf | Planche à voile |
+| 50 | Wakeboard | Ski nautique |
+| 51 | Paintball | Laser game |
+| 52 | Escape game | Murder party |
+| 53 | Trail | Course d'orientation |
+| 54 | Cyclisme | VTT |
+| 55 | Tarot | Rami |
+| 56 | Jardinage | Bricolage |
+| 57 | Crochet | Broderie |
 
-## Nature & météo — 44 paires
+## Nature & météo — 60 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -386,8 +481,24 @@
 | 42 | Source | Puits |
 | 43 | Bambou | Roseau |
 | 44 | Algue | Corail |
+| 45 | Ouragan | Cyclone |
+| 46 | Brume | Bruine |
+| 47 | Plaine | Prairie |
+| 48 | Vallée | Gorge |
+| 49 | Fleuve | Ruisseau |
+| 50 | Coquelicot | Bleuet |
+| 51 | Orchidée | Lys |
+| 52 | Jasmin | Lilas |
+| 53 | Ortie | Chardon |
+| 54 | Lierre | Vigne vierge |
+| 55 | Saule | Peuplier |
+| 56 | Bouleau | Hêtre |
+| 57 | Cocotier | Bananier |
+| 58 | Stalactite | Stalagmite |
+| 59 | Cristal | Quartz |
+| 60 | Diamant | Rubis |
 
-## Vêtements — 35 paires
+## Vêtements — 48 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -426,8 +537,21 @@
 | 33 | Cagoule | Passe-montagne |
 | 34 | Veste en jean | Perfecto |
 | 35 | Nœud papillon | Cravate |
+| 36 | Survêtement | Short de sport |
+| 37 | Maillot de foot | Maillot de basket |
+| 38 | Kilt | Paréo |
+| 39 | Cardigan | Col roulé |
+| 40 | Pantalon | Chino |
+| 41 | Escarpins | Sandales à talons |
+| 42 | Chaussons | Charentaises |
+| 43 | Bandeau | Serre-tête |
+| 44 | Bob | Panama |
+| 45 | Boutons de manchette | Épingle à cravate |
+| 46 | Lunettes de soleil | Masque de ski |
+| 47 | Combinaison de ski | Salopette de ski |
+| 48 | Bottes de pluie | Bottes en caoutchouc |
 
-## Transports & route — 34 paires
+## Transports & route — 48 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -465,8 +589,22 @@
 | 32 | Klaxon | Sirène |
 | 33 | GPS | Carte routière |
 | 34 | Ceinture de sécurité | Airbag |
+| 35 | Trottinette | Draisienne |
+| 36 | Autocar | Minibus |
+| 37 | Métro | RER |
+| 38 | Planeur | ULM |
+| 39 | Yacht | Vedette |
+| 40 | Zodiac | Canot de sauvetage |
+| 41 | Pédalo | Barque |
+| 42 | Gondole | Pirogue |
+| 43 | Remorque | Attelage |
+| 44 | Essence | Diesel |
+| 45 | Plaque d'immatriculation | Carte grise |
+| 46 | Rétroviseur | Clignotant |
+| 47 | Volant | Guidon |
+| 48 | Pneu | Roue de secours |
 
-## Corps & santé — 37 paires
+## Corps & santé — 52 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -507,8 +645,23 @@
 | 35 | Radio | Échographie |
 | 36 | Ordonnance | Médicament |
 | 37 | Sirop | Pastille |
+| 38 | Bras | Jambe |
+| 39 | Talon | Plante du pied |
+| 40 | Front | Tempe |
+| 41 | Mâchoire | Menton |
+| 42 | Joue | Pommette |
+| 43 | Gorge | Cou |
+| 44 | Ventre | Dos |
+| 45 | Côte | Clavicule |
+| 46 | Entorse | Foulure |
+| 47 | Fracture | Fêlure |
+| 48 | Thermomètre | Tensiomètre |
+| 49 | Sommeil | Rêve |
+| 50 | Cauchemar | Insomnie |
+| 51 | Gastro | Indigestion |
+| 52 | Mal de mer | Mal des transports |
 
-## Bricolage & jardin — 30 paires
+## Bricolage & jardin — 44 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -542,12 +695,26 @@
 | 28 | Mastic | Silicone |
 | 29 | Boîte à outils | Établi |
 | 30 | Papier peint | Carrelage |
+| 31 | Scie sauteuse | Tronçonneuse |
+| 32 | Rabot | Ciseau à bois |
+| 33 | Cheville | Piton |
+| 34 | Écrou | Boulon |
+| 35 | Pied-de-biche | Levier |
+| 36 | Enduit | Plâtre |
+| 37 | Ciment | Béton |
+| 38 | Brique | Parpaing |
+| 39 | Tuile | Ardoise |
+| 40 | Rosier | Hortensia |
+| 41 | Bêche | Pioche |
+| 42 | Arroseur | Goutte-à-goutte |
+| 43 | Souffleur | Aspirateur de feuilles |
+| 44 | Niche | Chenil |
 
 ---
 
 # Culture pop
 
-## Films & séries — 45 paires
+## Films & séries — 65 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -596,8 +763,28 @@
 | 43 | Les Choristes | Le Cercle des poètes disparus |
 | 44 | Ratatouille | Là-haut |
 | 45 | Bambi | Dumbo |
+| 46 | Les Dents de la mer | En eaux troubles |
+| 47 | Alien | Predator |
+| 48 | Gladiator | Troie |
+| 49 | Rambo | Commando |
+| 50 | Le Cinquième Élément | Valérian |
+| 51 | Les Tontons flingueurs | OSS 117 |
+| 52 | The Mandalorian | Andor |
+| 53 | Lost | Prison Break |
+| 54 | Dexter | Mindhunter |
+| 55 | The Crown | Downton Abbey |
+| 56 | Desperate Housewives | Gossip Girl |
+| 57 | Les Experts | NCIS |
+| 58 | Scary Movie | Scream |
+| 59 | Halloween | Vendredi 13 |
+| 60 | Ça | Annabelle |
+| 61 | Le Hobbit | Eragon |
+| 62 | Twilight | Vampire Diaries |
+| 63 | Mamma Mia! | Grease |
+| 64 | La La Land | Whiplash |
+| 65 | Joker | The Batman |
 
-## Musique — 44 paires
+## Musique — 66 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -645,8 +832,30 @@
 | 42 | Single | Album |
 | 43 | Playlist | Compilation |
 | 44 | Harpe | Lyre |
+| 45 | R'n'B | Soul |
+| 46 | Country | Folk |
+| 47 | Hard rock | Heavy metal |
+| 48 | Classique | Baroque |
+| 49 | Quatuor | Trio |
+| 50 | Refrain | Couplet |
+| 51 | Métronome | Diapason |
+| 52 | Partition | Solfège |
+| 53 | Micro | Ampli |
+| 54 | Platine | Table de mixage |
+| 55 | Francis Cabrel | Jean-Jacques Goldman |
+| 56 | Renaud | Bénabar |
+| 57 | Vianney | Kendji Girac |
+| 58 | Soprano | Black M |
+| 59 | Gims | Dadju |
+| 60 | Lomepal | Vald |
+| 61 | Coldplay | U2 |
+| 62 | Nirvana | Foo Fighters |
+| 63 | ABBA | Boney M |
+| 64 | Adele | Amy Winehouse |
+| 65 | Dua Lipa | Ariana Grande |
+| 66 | The Weeknd | Drake |
 
-## Personnages & héros — 43 paires
+## Personnages & héros — 60 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -693,8 +902,25 @@
 | 41 | Yoda | Merlin l'enchanteur |
 | 42 | Le Petit Chaperon rouge | Boucle d'or |
 | 43 | Fée Clochette | Cupidon |
+| 44 | Flash | Quicksilver |
+| 45 | Robin | Batgirl |
+| 46 | Hermione | Ron |
+| 47 | Harry Potter | Percy Jackson |
+| 48 | Frodon | Bilbon |
+| 49 | Aragorn | Legolas |
+| 50 | Han Solo | Luke Skywalker |
+| 51 | Princesse Leia | Padmé |
+| 52 | R2-D2 | C-3PO |
+| 53 | Simba | Mufasa |
+| 54 | Nemo | Dory |
+| 55 | Timon | Pumbaa |
+| 56 | Baloo | Bagheera |
+| 57 | Minnie | Daisy |
+| 58 | Petit Poucet | Tom Pouce |
+| 59 | Mérida | Raiponce |
+| 60 | Le Chat Botté | Le Chat du Cheshire |
 
-## Jeux vidéo & jouets — 43 paires
+## Jeux vidéo & jouets — 57 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -741,8 +967,22 @@
 | 41 | Cache-cache | Chat perché |
 | 42 | Twister | Docteur Maboul |
 | 43 | Mille Bornes | Bonne Paye |
+| 44 | Fall Guys | Stumble Guys |
+| 45 | Halo | Destiny |
+| 46 | Kirby | Yoshi |
+| 47 | Wii Sports | Wii Fit |
+| 48 | Petits chevaux | Jeu de l'oie |
+| 49 | Yam's | 421 |
+| 50 | Loto | Bingo |
+| 51 | Diabolo | Bilboquet |
+| 52 | Corde à sauter | Élastique |
+| 53 | Château gonflable | Trampoline |
+| 54 | Dînette | Marchande |
+| 55 | Kapla | Meccano |
+| 56 | Train électrique | Circuit de voitures |
+| 57 | Talkie-walkie | Téléphone en gobelets |
 
-## Célébrités — 39 paires
+## Célébrités — 60 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -785,8 +1025,29 @@
 | 37 | Monet | Renoir |
 | 38 | Michael Phelps | Léon Marchand |
 | 39 | Serena Williams | Venus Williams |
+| 40 | Thierry Henry | Trezeguet |
+| 41 | Neymar | Ronaldinho |
+| 42 | Antoine Dupont | Jonny Wilkinson |
+| 43 | Wembanyama | Rudy Gobert |
+| 44 | Lewis Hamilton | Max Verstappen |
+| 45 | Alain Prost | Ayrton Senna |
+| 46 | Mike Tyson | Mohamed Ali |
+| 47 | Simone Biles | Nadia Comaneci |
+| 48 | Julia Roberts | Meg Ryan |
+| 49 | Marion Cotillard | Audrey Tautou |
+| 50 | Sophie Marceau | Isabelle Adjani |
+| 51 | Gérard Jugnot | Christian Clavier |
+| 52 | Jean-Paul Belmondo | Alain Delon |
+| 53 | Charlie Chaplin | Buster Keaton |
+| 54 | Walt Disney | Hayao Miyazaki |
+| 55 | Spielberg | Tarantino |
+| 56 | Martin Luther King | Nelson Mandela |
+| 57 | Gandhi | Dalaï-lama |
+| 58 | Simone Veil | Simone de Beauvoir |
+| 59 | Jules Verne | Alexandre Dumas |
+| 60 | Brigitte Bardot | Catherine Deneuve |
 
-## Dessins animés & mangas — 30 paires
+## Dessins animés & mangas — 42 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -820,8 +1081,20 @@
 | 28 | Heidi | Candy |
 | 29 | Albator | Goldorak |
 | 30 | Bouba | Casimir |
+| 31 | South Park | American Dad |
+| 32 | Shin-chan | Doraemon |
+| 33 | Hamtaro | Pucca |
+| 34 | Bob le bricoleur | Sam le pompier |
+| 35 | Oui-Oui | Tchoupi |
+| 36 | Avatar, le dernier maître de l'air | La Légende de Korra |
+| 37 | Ben 10 | Danny Fantôme |
+| 38 | Kim Possible | Phinéas et Ferb |
+| 39 | Wakfu | Dofus |
+| 40 | Hunter x Hunter | Fullmetal Alchemist |
+| 41 | Spy x Family | Demon Slayer |
+| 42 | Les Lapins Crétins | Les Minions |
 
-## Réseaux & tech — 35 paires
+## Réseaux & tech — 50 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -860,12 +1133,27 @@
 | 33 | Chargeur | Câble |
 | 34 | Ordinateur portable | Tablette |
 | 35 | Capture d'écran | Copier-coller |
+| 36 | Discord | Slack |
+| 37 | Uber | Deliveroo |
+| 38 | Airbnb | Booking |
+| 39 | Amazon | AliExpress |
+| 40 | Vinted | Leboncoin |
+| 41 | Google Maps | Waze |
+| 42 | PayPal | Lydia |
+| 43 | Zoom | Teams |
+| 44 | Processeur | Carte graphique |
+| 45 | Android | iOS |
+| 46 | Windows | macOS |
+| 47 | Antivirus | Pare-feu |
+| 48 | QR code | Code-barres |
+| 49 | Streaming | Téléchargement |
+| 50 | Vlog | Tuto |
 
 ---
 
 # Thèmes originaux
 
-## France & régions — 30 paires
+## France & régions — 44 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -899,8 +1187,22 @@
 | 28 | Roquefort | Comté |
 | 29 | Pastis | Calvados |
 | 30 | Strasbourg | Colmar |
+| 31 | Lille | Roubaix |
+| 32 | Rennes | Brest |
+| 33 | Grenoble | Annecy |
+| 34 | Biarritz | Arcachon |
+| 35 | Saint-Tropez | Cannes |
+| 36 | Mont Blanc | Mont Ventoux |
+| 37 | Croque-monsieur | Croque-madame |
+| 38 | Ratatouille | Piperade |
+| 39 | Gratin dauphinois | Aligot |
+| 40 | Saint-Nectaire | Reblochon |
+| 41 | Baguette | Ficelle |
+| 42 | La Marseillaise | Le Chant des partisans |
+| 43 | La Poste | SNCF |
+| 44 | Pôle emploi | CAF |
 
-## Monde & pays — 34 paires
+## Monde & pays — 54 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -938,8 +1240,28 @@
 | 32 | Norvège | Islande |
 | 33 | Pérou | Chili |
 | 34 | Sénégal | Côte d'Ivoire |
+| 35 | Colombie | Venezuela |
+| 36 | Kenya | Tanzanie |
+| 37 | Afrique du Sud | Namibie |
+| 38 | Madagascar | Maurice |
+| 39 | Vietnam | Cambodge |
+| 40 | Finlande | Suède |
+| 41 | Écosse | Pays de Galles |
+| 42 | Barcelone | Madrid |
+| 43 | Berlin | Munich |
+| 44 | Amsterdam | Bruxelles |
+| 45 | Moscou | Saint-Pétersbourg |
+| 46 | Rio de Janeiro | Buenos Aires |
+| 47 | Sydney | Melbourne |
+| 48 | Toronto | Montréal |
+| 49 | Le Caire | Marrakech |
+| 50 | Istanbul | Athènes |
+| 51 | Chutes du Niagara | Chutes Victoria |
+| 52 | Machu Picchu | Chichén Itzá |
+| 53 | Kremlin | Maison-Blanche |
+| 54 | Roupie | Dirham |
 
-## Fêtes & traditions — 28 paires
+## Fêtes & traditions — 40 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -971,8 +1293,20 @@
 | 26 | Défilé | Parade |
 | 27 | Papier cadeau | Ruban |
 | 28 | Chasse aux œufs | Chasse au trésor |
+| 29 | Saint-Patrick | Oktoberfest |
+| 30 | Carnaval de Rio | Carnaval de Venise |
+| 31 | Feu de camp | Feu de la Saint-Jean |
+| 32 | Boule de Noël | Étoile du sapin |
+| 33 | Chocolats de Noël | Papillotes |
+| 34 | Marché de Noël | Village de Noël |
+| 35 | Bal | Guinguette |
+| 36 | Discours | Toast |
+| 37 | Pièce montée | Wedding cake |
+| 38 | Robe de mariée | Voile de mariée |
+| 39 | Alliance | Bague de fiançailles |
+| 40 | Lanterne | Lampion |
 
-## Mythes & fantastique — 30 paires
+## Mythes & fantastique — 42 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1006,8 +1340,20 @@
 | 28 | Hydre | Gorgone |
 | 29 | Grimoire | Parchemin |
 | 30 | Fontaine de jouvence | Pierre philosophale |
+| 31 | Basilic | Serpent de mer |
+| 32 | Sphinx | Chimère |
+| 33 | Djinn | Génie |
+| 34 | Golem | Gargouille |
+| 35 | Druide | Chaman |
+| 36 | Élixir | Philtre d'amour |
+| 37 | Talisman | Amulette |
+| 38 | Hippogriffe | Griffon |
+| 39 | Dryade | Nymphe |
+| 40 | Anubis | Osiris |
+| 41 | Ra | Hélios |
+| 42 | Athéna | Minerve |
 
-## Histoire — 32 paires
+## Histoire — 44 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1043,8 +1389,20 @@
 | 30 | Seigneur | Vassal |
 | 31 | Trône | Couronne |
 | 32 | Duel | Bataille |
+| 33 | Flibustier | Boucanier |
+| 34 | Romain | Gaulois |
+| 35 | Écuyer | Page |
+| 36 | Bouffon | Troubadour |
+| 37 | Forgeron | Armurier |
+| 38 | Tranchée | Bunker |
+| 39 | Résistance | Maquis |
+| 40 | Armistice | Traité de paix |
+| 41 | Empire | Royaume |
+| 42 | République | Monarchie |
+| 43 | Momie | Sarcophage |
+| 44 | Pompéi | Herculanum |
 
-## Espace & science — 30 paires
+## Espace & science — 42 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1078,8 +1436,20 @@
 | 28 | Volcan | Séisme |
 | 29 | Oxygène | Hydrogène |
 | 30 | Formule | Équation |
+| 31 | Vénus | Mercure |
+| 32 | Neptune | Pluton |
+| 33 | Exoplanète | Planète naine |
+| 34 | Nébuleuse | Supernova |
+| 35 | Sonde | Rover |
+| 36 | Hubble | James Webb |
+| 37 | NASA | ESA |
+| 38 | Spoutnik | Apollo |
+| 39 | Électron | Proton |
+| 40 | Volt | Ampère |
+| 41 | Chimie | Physique |
+| 42 | Biologie | Géologie |
 
-## Superpouvoirs — 22 paires
+## Superpouvoirs — 32 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1105,8 +1475,18 @@
 | 20 | Chance infinie | Argent infini |
 | 21 | Super ouïe | Super odorat |
 | 22 | Rayon laser | Souffle glacé |
+| 23 | Super saut | Super agilité |
+| 24 | Contrôler l'air | Contrôler la terre |
+| 25 | Contrôler les plantes | Contrôler les animaux |
+| 26 | Absorber les pouvoirs | Copier les pouvoirs |
+| 27 | Créer des illusions | Manipuler les rêves |
+| 28 | Champ de force | Bouclier d'énergie |
+| 29 | Vision thermique | Vision à rayons X |
+| 30 | Lancer des éclairs | Lancer des boules de feu |
+| 31 | Super mémoire | Super intelligence |
+| 32 | Contrôler les machines | Parler aux ordinateurs |
 
-## Nostalgie années 2000 — 28 paires
+## Nostalgie années 2000 — 40 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1138,8 +1518,20 @@
 | 26 | Gameboy Color | Nintendo DS |
 | 27 | Tamagotchi | Furby |
 | 28 | Rollers en ligne | Heelys |
+| 29 | Caramail | Hotmail |
+| 30 | Disquette | CD-ROM |
+| 31 | Game Boy Advance | PSP |
+| 32 | PlayStation 2 | GameCube |
+| 33 | Pokémon Rouge | Pokémon Bleu |
+| 34 | Les 2 Be 3 | Alliage |
+| 35 | Spice Girls | L5 |
+| 36 | Linkin Park | Evanescence |
+| 37 | Sean Paul | Shaggy |
+| 38 | Questions pour un champion | Le Maillon faible |
+| 39 | Qui veut gagner des millions | Le Juste Prix |
+| 40 | Scoubidou | Bracelet brésilien |
 
-## Petits tracas — 28 paires
+## Petits tracas — 37 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1171,8 +1563,17 @@
 | 26 | Panne de chaudière | Fuite d'eau |
 | 27 | Gueule de bois | Nuit blanche |
 | 28 | Mot de passe oublié | Compte bloqué |
+| 29 | Bus raté | Métro bondé |
+| 30 | Chaussure qui prend l'eau | Chaussette mouillée |
+| 31 | Ticket de caisse perdu | Garantie expirée |
+| 32 | Colis perdu | Colis abîmé |
+| 33 | Poser un lapin | Arriver en retard |
+| 34 | Message à la mauvaise personne | Répondre à tous |
+| 35 | Faute de frappe | Correcteur automatique |
+| 36 | Chewing-gum sous la chaussure | Crotte de chien |
+| 37 | Mal de tête | Mal de ventre |
 
-## Bureau & travail — 30 paires
+## Bureau & travail — 42 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1206,8 +1607,20 @@
 | 28 | Freelance | Auto-entrepreneur |
 | 29 | Client | Fournisseur |
 | 30 | Chef de projet | Directeur |
+| 31 | Imprimante en panne | Bourrage papier |
+| 32 | Ordre du jour | Compte rendu |
+| 33 | Pause café | Pause déjeuner |
+| 34 | Tenue de travail | Dress code |
+| 35 | Bilan | Rapport |
+| 36 | Organigramme | Planning |
+| 37 | Siège social | Succursale |
+| 38 | Grève | Manifestation |
+| 39 | Fiche de paie | Contrat de travail |
+| 40 | Mutuelle | Assurance |
+| 41 | Entretien annuel | Évaluation |
+| 42 | Cadre | Employé |
 
-## École & enfance — 30 paires
+## École & enfance — 43 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1241,8 +1654,21 @@
 | 28 | Cour de récré | Préau |
 | 29 | Livre de maths | Livre d'histoire |
 | 30 | Conjugaison | Grammaire |
+| 31 | Stylo plume | Stylo bille |
+| 32 | Taille-crayon | Crayon à papier |
+| 33 | Ardoise | Craie |
+| 34 | Agenda | Cahier de textes |
+| 35 | Histoire | Géographie |
+| 36 | Maths | Physique |
+| 37 | Anglais | Espagnol |
+| 38 | Musique | Arts plastiques |
+| 39 | SVT | Technologie |
+| 40 | Conseil de classe | Réunion parents-profs |
+| 41 | Tableau d'honneur | Félicitations |
+| 42 | Redoubler | Sauter une classe |
+| 43 | Internat | Demi-pension |
 
-## Émotions & caractère — 30 paires
+## Émotions & caractère — 46 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1276,8 +1702,24 @@
 | 28 | Rancune | Vengeance |
 | 29 | Maladroit | Gaffeur |
 | 30 | Râleur | Grincheux |
+| 31 | Énervé | Agacé |
+| 32 | Déçu | Frustré |
+| 33 | Anxieux | Inquiet |
+| 34 | Confiant | Sûr de soi |
+| 35 | Modeste | Humble |
+| 36 | Sensible | Émotif |
+| 37 | Susceptible | Vexé |
+| 38 | Loyal | Fidèle |
+| 39 | Peureux | Lâche |
+| 40 | Organisé | Méticuleux |
+| 41 | Impatient | Pressé |
+| 42 | Égoïste | Égocentrique |
+| 43 | Sociable | Extraverti |
+| 44 | Charmeur | Séducteur |
+| 45 | Gourmand | Gourmet |
+| 46 | Sérieux | Studieux |
 
-## Famille & vie à deux — 25 paires
+## Famille & vie à deux — 36 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1306,3 +1748,14 @@
 | 23 | Grossesse | Accouchement |
 | 24 | Aîné | Cadet |
 | 25 | Réunion de famille | Cousinade |
+| 26 | Oncle | Grand-oncle |
+| 27 | Nièce | Cousine |
+| 28 | Beau-père | Beau-frère |
+| 29 | Petit-fils | Arrière-petit-fils |
+| 30 | Sœur | Demi-sœur |
+| 31 | Grand-mère | Arrière-grand-mère |
+| 32 | Pacs | Concubinage |
+| 33 | Adoption | Famille d'accueil |
+| 34 | Berceau | Lit à barreaux |
+| 35 | Chambre d'enfant | Salle de jeux |
+| 36 | Brunch du dimanche | Repas du dimanche |
