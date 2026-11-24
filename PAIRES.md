@@ -1,12 +1,12 @@
 # Mot Masqué — toutes les paires de mots
 
-32 thèmes · 1628 paires. Dans chaque partie, l’appli tire au hasard lequel des deux mots va aux civils.
+32 thèmes · 1721 paires. Dans chaque partie, l’appli tire au hasard lequel des deux mots va aux civils.
 
 ## Sommaire
 
 - **Classiques** : Nourriture (81), Animaux (66), Maison & objets (70), Lieux & voyages (57), Métiers (60), Sports & loisirs (57), Nature & météo (60), Vêtements (48), Transports & route (48), Corps & santé (52), Bricolage & jardin (44)
 - **Culture pop** : Films & séries (65), Musique (66), Personnages & héros (60), Jeux vidéo & jouets (57), Célébrités (60), Dessins animés & mangas (42), Réseaux & tech (50)
-- **Thèmes originaux** : France & régions (44), Monde & pays (54), Fêtes & traditions (40), Mythes & fantastique (42), Histoire (44), Espace & science (42), Superpouvoirs (32), Nostalgie années 2000 (40), Petits tracas (37), Bureau & travail (42), École & enfance (43), Émotions & caractère (46), Famille & vie à deux (36), Prépa PC (43)
+- **Thèmes originaux** : France & régions (44), Monde & pays (54), Fêtes & traditions (40), Mythes & fantastique (42), Histoire (44), Espace & science (42), Superpouvoirs (32), Nostalgie années 2000 (40), Petits tracas (37), Bureau & travail (42), École & enfance (43), Émotions & caractère (46), Famille & vie à deux (36), Prépa PC (136)
 
 ---
 
@@ -1760,7 +1760,7 @@
 | 35 | Chambre d'enfant | Salle de jeux |
 | 36 | Brunch du dimanche | Repas du dimanche |
 
-## Prépa PC — 43 paires
+## Prépa PC — 136 paires
 
 | # | Mot A | Mot B |
 |---:|---|---|
@@ -1807,3 +1807,96 @@
 | 41 | Python | Scilab |
 | 42 | Calculatrice | Formulaire |
 | 43 | Nuit blanche | Révisions |
+| 44 | Café | Energy drink |
+| 45 | Thermos | Tasse |
+| 46 | Self | Cafétéria |
+| 47 | Salle d'étude | CDI |
+| 48 | Étude du soir | Permanence |
+| 49 | Polycopié | Cours |
+| 50 | Fiche de révision | Carte mentale |
+| 51 | Brouillon | Copie double |
+| 52 | Surligneur | Stylo quatre couleurs |
+| 53 | Effaceur | Blanco |
+| 54 | Micro-sieste | Sieste |
+| 55 | Coup de mou | Baisse de régime |
+| 56 | Petites vacances | Grandes vacances |
+| 57 | Vendredi soir | Dimanche soir |
+| 58 | Classe | Promo |
+| 59 | Prof principal | Proviseur |
+| 60 | Délégué | BDE |
+| 61 | Gala | Soirée de fin d'année |
+| 62 | PC* | PC |
+| 63 | 5/2 | 3/2 |
+| 64 | Admissible | Admis |
+| 65 | Liste principale | Liste d'attente |
+| 66 | Barre d'admissibilité | Barre d'admission |
+| 67 | Annales | Rapport du jury |
+| 68 | École d'ingénieurs | Université |
+| 69 | Parcoursup | SCEI |
+| 70 | Plan de travail | Planning de révisions |
+| 71 | Tableau | Craie |
+| 72 | Programme | Chapitre |
+| 73 | Démonstration | Théorème |
+| 74 | Application numérique | Ordre de grandeur |
+| 75 | Analyse dimensionnelle | Homogénéité |
+| 76 | Pendule | Ressort |
+| 77 | Loi d'Ohm | Loi des mailles |
+| 78 | Condensateur | Bobine |
+| 79 | Résistance | Diode |
+| 80 | Filtre passe-bas | Filtre passe-haut |
+| 81 | Lentille | Miroir |
+| 82 | Prisme | Réseau |
+| 83 | Laser | Lampe spectrale |
+| 84 | Gaz parfait | Gaz réel |
+| 85 | Premier principe | Second principe |
+| 86 | Machine thermique | Pompe à chaleur |
+| 87 | Cycle de Carnot | Cycle de Rankine |
+| 88 | Diffusion thermique | Conduction |
+| 89 | Bernoulli | Navier-Stokes |
+| 90 | Viscosité | Turbulence |
+| 91 | Nombre de Reynolds | Nombre de Mach |
+| 92 | Effet Doppler | Effet Joule |
+| 93 | Champ électrique | Champ magnétique |
+| 94 | Théorème de Gauss | Théorème d'Ampère |
+| 95 | Solénoïde | Spire |
+| 96 | Moment cinétique | Quantité de mouvement |
+| 97 | Énergie cinétique | Énergie potentielle |
+| 98 | Force de Lorentz | Force de Laplace |
+| 99 | Oscillateur harmonique | Oscillateur amorti |
+| 100 | Régime transitoire | Régime permanent |
+| 101 | Fonction d'onde | Équation de Schrödinger |
+| 102 | Photon | Électron |
+| 103 | Effet photoélectrique | Effet tunnel |
+| 104 | Cinétique chimique | Thermochimie |
+| 105 | Catalyseur | Enzyme |
+| 106 | Aldéhyde | Cétone |
+| 107 | Ester | Amide |
+| 108 | Alcool | Éther |
+| 109 | Substitution | Élimination |
+| 110 | Nucléophile | Électrophile |
+| 111 | Carbocation | Carbanion |
+| 112 | Mésomérie | Conjugaison |
+| 113 | HO | BV |
+| 114 | Dosage | Titrage |
+| 115 | Burette | Pipette |
+| 116 | Bécher | Erlenmeyer |
+| 117 | Ampoule à décanter | Réfrigérant |
+| 118 | Chromatographie | Recristallisation |
+| 119 | pH-mètre | Conductimètre |
+| 120 | Indicateur coloré | Phénolphtaléine |
+| 121 | Pile | Électrolyse |
+| 122 | Cubique faces centrées | Hexagonal compact |
+| 123 | Potentiel chimique | Enthalpie libre |
+| 124 | Constante d'équilibre | Quotient de réaction |
+| 125 | Complexe | Ligand |
+| 126 | Espace vectoriel | Sous-espace vectoriel |
+| 127 | Valeur propre | Vecteur propre |
+| 128 | Diagonaliser | Trigonaliser |
+| 129 | Produit scalaire | Produit vectoriel |
+| 130 | Intégrale double | Intégrale curviligne |
+| 131 | Gradient | Divergence |
+| 132 | Rotationnel | Laplacien |
+| 133 | Probabilité | Espérance |
+| 134 | Variance | Écart-type |
+| 135 | Suite | Série |
+| 136 | Limite | Dérivée |
