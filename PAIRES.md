@@ -1,12 +1,12 @@
 # Mot Masqué — toutes les paires de mots
 
-31 thèmes · 1585 paires. Dans chaque partie, l’appli tire au hasard lequel des deux mots va aux civils.
+32 thèmes · 1628 paires. Dans chaque partie, l’appli tire au hasard lequel des deux mots va aux civils.
 
 ## Sommaire
 
 - **Classiques** : Nourriture (81), Animaux (66), Maison & objets (70), Lieux & voyages (57), Métiers (60), Sports & loisirs (57), Nature & météo (60), Vêtements (48), Transports & route (48), Corps & santé (52), Bricolage & jardin (44)
 - **Culture pop** : Films & séries (65), Musique (66), Personnages & héros (60), Jeux vidéo & jouets (57), Célébrités (60), Dessins animés & mangas (42), Réseaux & tech (50)
-- **Thèmes originaux** : France & régions (44), Monde & pays (54), Fêtes & traditions (40), Mythes & fantastique (42), Histoire (44), Espace & science (42), Superpouvoirs (32), Nostalgie années 2000 (40), Petits tracas (37), Bureau & travail (42), École & enfance (43), Émotions & caractère (46), Famille & vie à deux (36)
+- **Thèmes originaux** : France & régions (44), Monde & pays (54), Fêtes & traditions (40), Mythes & fantastique (42), Histoire (44), Espace & science (42), Superpouvoirs (32), Nostalgie années 2000 (40), Petits tracas (37), Bureau & travail (42), École & enfance (43), Émotions & caractère (46), Famille & vie à deux (36), Prépa PC (43)
 
 ---
 
@@ -1759,3 +1759,51 @@
 | 34 | Berceau | Lit à barreaux |
 | 35 | Chambre d'enfant | Salle de jeux |
 | 36 | Brunch du dimanche | Repas du dimanche |
+
+## Prépa PC — 43 paires
+
+| # | Mot A | Mot B |
+|---:|---|---|
+| 1 | Khôlle | Interro |
+| 2 | DS | DM |
+| 3 | Colleur | Professeur |
+| 4 | Concours | Examen |
+| 5 | Mines-Ponts | Centrale |
+| 6 | X | ENS |
+| 7 | CCINP | e3a |
+| 8 | Écrit | Oral |
+| 9 | Cube | Redoublement |
+| 10 | PCSI | MPSI |
+| 11 | Spé | Sup |
+| 12 | Internat | Résidence |
+| 13 | TIPE | Projet |
+| 14 | Khâgne | Hypokhâgne |
+| 15 | Taupin | Bizuth |
+| 16 | Sujet | Corrigé |
+| 17 | Barème | Note |
+| 18 | Classement | Moyenne |
+| 19 | Bac+2 | Licence |
+| 20 | Thermodynamique | Mécanique |
+| 21 | Optique | Électronique |
+| 22 | Chimie organique | Chimie inorganique |
+| 23 | Électromagnétisme | Induction |
+| 24 | Mécanique quantique | Relativité |
+| 25 | Enthalpie | Entropie |
+| 26 | Oxydoréduction | Acide-base |
+| 27 | Diagramme de Pourbaix | Diagramme E-pH |
+| 28 | Tableau d'avancement | Bilan de matière |
+| 29 | Mécanisme réactionnel | Réaction chimique |
+| 30 | Molécule chirale | Énantiomère |
+| 31 | Spectroscopie IR | RMN |
+| 32 | Équation de Maxwell | Loi de Faraday |
+| 33 | Onde | Vibration |
+| 34 | Interférences | Diffraction |
+| 35 | Fentes d'Young | Michelson |
+| 36 | Oscilloscope | GBF |
+| 37 | Montage | Manip |
+| 38 | Équation différentielle | Intégrale |
+| 39 | Matrice | Déterminant |
+| 40 | Série entière | Série de Fourier |
+| 41 | Python | Scilab |
+| 42 | Calculatrice | Formulaire |
+| 43 | Nuit blanche | Révisions |
